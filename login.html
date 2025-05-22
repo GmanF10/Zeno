@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zeno Login</title>
+  <title>Login</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -13,10 +13,17 @@
   <div class="container login-container">
     <h2>Login</h2>
 
-    <input type="email" id="email" placeholder="Email" autocomplete="off" />
-    <input type="password" id="password" placeholder="Password" autocomplete="off" />
+    <div class="input-group">
+      <input type="email" id="email" placeholder="Email" autocomplete="off" />
+      <span class="icon user-icon"></span>
+    </div>
 
-    <button id="loginBtn" class="btn-submit">Submit</button>
+    <div class="input-group">
+      <input type="password" id="password" placeholder="Password" autocomplete="off" />
+      <span class="icon lock-icon"></span>
+    </div>
+
+    <button id="loginBtn" class="submit-btn">Submit</button>
 
     <div class="links">
       <a href="#" id="forgotPassword">Forgot Password?</a>

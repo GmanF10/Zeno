@@ -1,130 +1,150 @@
-/* General Reset */
+/* General Reset & Basics */
 * {
   box-sizing: border-box;
-}
-
-body, html {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #121212;
-  color: #eee;
-  height: 100%;
 }
 
-/* Container for content */
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #111;
+  overflow: hidden;
+  color: #fff;
+}
+
+/* Background */
+.background {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, #222, #111 80%);
+  z-index: -1;
+}
+
+/* Container base */
 .container {
   max-width: 400px;
-  margin: 5% auto;
-  background: #222;
-  padding: 30px 40px;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+  background: rgba(255 255 255 / 0.1);
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(255 255 255 / 0.15);
+  backdrop-filter: blur(8px);
+  margin: auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
   text-align: center;
 }
 
-/* Login container with transparent background */
+/* Specific container for login page for clarity */
 .login-container {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  width: 100%;
 }
 
-/* Input fields */
-input[type="email"],
-input[type="password"] {
+/* Heading */
+.container h2 {
+  margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 1.8rem;
+  letter-spacing: 1.5px;
+}
+
+/* Input groups */
+.input-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-group input {
   width: 100%;
-  padding: 12px 15px;
-  margin: 15px 0 25px 0;
+  padding: 12px 45px 12px 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
+  background: rgba(255 255 255 / 0.15);
+  color: #fff;
   font-size: 1rem;
-  background: #333;
-  color: #eee;
   transition: background-color 0.3s ease;
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
-  background: #444;
-  outline: none;
+.input-group input::placeholder {
+  color: #ccc;
 }
 
-/* Link styles */
+.input-group input:focus {
+  background: rgba(255 255 255 / 0.3);
+  outline: none;
+  box-shadow: 0 0 8px #00f0ff;
+}
+
+/* Icons inside input */
+.icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  opacity: 0.6;
+  filter: drop-shadow(0 0 1px rgba(0,0,0,0.5));
+}
+
+/* User icon (email) */
+.user-icon {
+  background: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>') no-repeat center center;
+  background-size: contain;
+}
+
+/* Lock icon (password) */
+.lock-icon {
+  background: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17a2 2 0 0 0 2-2v-2a2 2 0 0 0-4 0v2a2 2 0 0 0 2 2zm6-5h-1V9a5 5 0 0 0-10 0v3H6c-1.1 0-2 .9-2 2v5c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-5c0-1.1-.9-2-2-2z"/></svg>') no-repeat center center;
+  background-size: contain;
+}
+
+/* Submit button */
+.submit-btn {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #00f0ff, #007bff);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,123,255,0.4);
+}
+
+.submit-btn:hover {
+  background: linear-gradient(90deg, #007bff, #00f0ff);
+  box-shadow: 0 6px 20px rgba(0,240,255,0.7);
+}
+
+/* Links below button */
 .links {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .links a {
-  color: #4caf50;
+  color: #00f0ff;
+  font-weight: 500;
   text-decoration: none;
   font-size: 0.9rem;
   margin: 0 10px;
-  cursor: pointer;
   transition: color 0.3s ease;
 }
 
-.links a:hover,
-.links a:focus {
-  color: #81c784;
-  outline: none;
+.links a:hover {
+  color: #007bff;
 }
 
 /* Status message */
 #status {
-  margin-top: 20px;
+  margin-top: 15px;
   font-weight: 600;
-}
-
-/* Shared primary button style (for index & dashboard logout) */
-.btn-primary {
-  background-color: #4caf50; /* Green */
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  max-width: 100%;
-}
-
-.btn-primary:hover,
-.btn-primary:focus {
-  background-color: #45a049;
-  outline: none;
-}
-
-/* Submit button style for login page (transparent with green border) */
-.btn-submit {
-  background: transparent;
-  border: 2px solid #4caf50;
-  color: #4caf50;
-  padding: 12px 25px;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  user-select: none;
-  transition: all 0.3s ease;
-  width: 100%;
-  max-width: 100%;
-}
-
-.btn-submit:hover,
-.btn-submit:focus {
-  background-color: #4caf50;
-  color: white;
-  outline: none;
-}
-
-/* Background styling */
-.background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #1a1a1a, #121212);
-  z-index: -1;
+  min-height: 20px;
+  font-size: 0.95rem;
 }
