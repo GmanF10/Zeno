@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Zeno Login + Upload</title>
+  <title>Zeno Login</title>
 </head>
 <body>
   <h2>Login to Zeno</h2>
@@ -11,19 +11,12 @@
   <input type="password" id="password" placeholder="Password" />
   <button onclick="login()">Login</button>
 
-  <h3>Upload a File</h3>
-  <input type="file" id="file" />
-  <button onclick="uploadFile()">Upload File</button>
-
   <p id="status"></p>
 
   <script type="module">
-    // Firebase imports
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
-    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-storage.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 
-    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyCHkSQPSm6la7b9E8O_Tc3YMI-FWWQzt4g",
       authDomain: "zeno-14a48.firebaseapp.com",
@@ -33,46 +26,18 @@
       appId: "1:416659613054:web:37e45bf1cc7b9bb9c77f2f"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const storage = getStorage(app);
 
-    // Login function
     window.login = async function () {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
       try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        await signInWithEmailAndPassword(auth, email, password);
         document.getElementById("status").textContent = "✅ Login successful!";
       } catch (error) {
         document.getElementById("status").textContent = `❌ Login failed: ${error.message}`;
-      }
-    };
-
-    // Upload function
-    window.uploadFile = async function () {
-      const fileInput = document.getElementById("file").files[0];
-      if (!fileInput) {
-        document.getElementById("status").textContent = "❌ Please select a file first.";
-        return;
-      }
-
-      const user = auth.currentUser;
-      if (!user) {
-        document.getElementById("status").textContent = "❌ You must be logged in to upload files.";
-        return;
-      }
-
-      const fileRef = ref(storage, `uploads/${fileInput.name}`);
-
-      try {
-        const snapshot = await uploadBytes(fileRef, fileInput);
-        const url = await getDownloadURL(snapshot.ref);
-        document.getElementById("status").textContent = `✅ Uploaded! File URL: ${url}`;
-      } catch (err) {
-        document.getElementById("status").textContent = `❌ Upload failed: ${err.message}`;
       }
     };
   </script>
