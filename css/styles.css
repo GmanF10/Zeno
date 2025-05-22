@@ -1,150 +1,113 @@
-/* General Reset & Basics */
+/* Reset and Base */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 html, body {
+  width: 100%;
   height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #111;
+  background: #0b0b0f;
   overflow: hidden;
-  color: #fff;
+  color: #ffffff;
 }
 
-/* Background */
-.background {
+/* Neural Network Canvas Background */
+#neuralCanvas {
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(circle at center, #222, #111 80%);
   z-index: -1;
+  background: #0b0b0f;
 }
 
-/* Container base */
+/* Centered Login Container */
 .container {
-  max-width: 400px;
-  background: rgba(255 255 255 / 0.1);
-  padding: 40px 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 30px rgba(255 255 255 / 0.15);
-  backdrop-filter: blur(8px);
-  margin: auto;
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  z-index: 1;
+  max-width: 400px;
+  margin: 10vh auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1.5rem;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
   text-align: center;
 }
 
-/* Specific container for login page for clarity */
-.login-container {
-  width: 100%;
-}
-
-/* Heading */
-.container h2 {
-  margin-bottom: 25px;
-  font-weight: 600;
+/* Title */
+.form-title {
   font-size: 1.8rem;
-  letter-spacing: 1.5px;
+  margin-bottom: 1.5rem;
+  color: #00d9ff;
 }
 
-/* Input groups */
-.input-group {
+/* Form Group */
+.form-group {
   position: relative;
-  margin-bottom: 25px;
+  margin-bottom: 1.8rem;
 }
 
-.input-group input {
+.form-group input {
   width: 100%;
-  padding: 12px 45px 12px 15px;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
   border: none;
-  border-radius: 10px;
-  background: rgba(255 255 255 / 0.15);
-  color: #fff;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   font-size: 1rem;
-  transition: background-color 0.3s ease;
 }
 
-.input-group input::placeholder {
-  color: #ccc;
+.form-group input::placeholder {
+  color: #aaa;
 }
 
-.input-group input:focus {
-  background: rgba(255 255 255 / 0.3);
-  outline: none;
-  box-shadow: 0 0 8px #00f0ff;
-}
-
-/* Icons inside input */
-.icon {
+.form-group .icon {
   position: absolute;
-  right: 15px;
+  right: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  width: 22px;
-  height: 22px;
+  color: #cccccc;
+  font-size: 1.2rem;
   pointer-events: none;
-  opacity: 0.6;
-  filter: drop-shadow(0 0 1px rgba(0,0,0,0.5));
 }
 
-/* User icon (email) */
-.user-icon {
-  background: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>') no-repeat center center;
-  background-size: contain;
-}
-
-/* Lock icon (password) */
-.lock-icon {
-  background: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17a2 2 0 0 0 2-2v-2a2 2 0 0 0-4 0v2a2 2 0 0 0 2 2zm6-5h-1V9a5 5 0 0 0-10 0v3H6c-1.1 0-2 .9-2 2v5c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-5c0-1.1-.9-2-2-2z"/></svg>') no-repeat center center;
-  background-size: contain;
-}
-
-/* Submit button */
+/* Submit Button */
 .submit-btn {
   width: 100%;
-  padding: 12px 0;
+  padding: 0.75rem;
+  font-size: 1rem;
+  color: #000;
+  background: #00d9ff;
   border: none;
-  border-radius: 12px;
-  background: linear-gradient(90deg, #00f0ff, #007bff);
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 600;
+  border-radius: 2rem;
   cursor: pointer;
   transition: background 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,123,255,0.4);
 }
 
 .submit-btn:hover {
-  background: linear-gradient(90deg, #007bff, #00f0ff);
-  box-shadow: 0 6px 20px rgba(0,240,255,0.7);
+  background: #00b5d8;
 }
 
-/* Links below button */
-.links {
-  margin-top: 20px;
-}
-
-.links a {
-  color: #00f0ff;
-  font-weight: 500;
-  text-decoration: none;
+/* Status Message */
+.status-msg {
+  margin-top: 1rem;
   font-size: 0.9rem;
-  margin: 0 10px;
-  transition: color 0.3s ease;
+  color: #ff4d4d;
 }
 
-.links a:hover {
-  color: #007bff;
-}
+/* Responsive */
+@media (max-width: 480px) {
+  .container {
+    margin: 5vh 1rem;
+    padding: 1.5rem;
+  }
 
-/* Status message */
-#status {
-  margin-top: 15px;
-  font-weight: 600;
-  min-height: 20px;
-  font-size: 0.95rem;
+  .form-title {
+    font-size: 1.5rem;
+  }
 }

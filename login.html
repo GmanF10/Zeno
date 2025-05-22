@@ -3,35 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login</title>
+  <title>Zeno Login</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <!-- Neural Network Canvas Background -->
+  <canvas id="neuralCanvas"></canvas>
 
-  <div class="background"></div>
+  <!-- Login Form Container -->
+  <div class="container">
+    <h2 class="form-title">Login</h2>
 
-  <div class="container login-container">
-    <h2>Login</h2>
-
-    <div class="input-group">
-      <input type="email" id="email" placeholder="Email" autocomplete="off" />
-      <span class="icon user-icon"></span>
+    <div class="form-group">
+      <input type="email" id="email" placeholder="Email" required />
+      <span class="icon">👤</span>
     </div>
 
-    <div class="input-group">
-      <input type="password" id="password" placeholder="Password" autocomplete="off" />
-      <span class="icon lock-icon"></span>
+    <div class="form-group">
+      <input type="password" id="password" placeholder="Password" required />
+      <span class="icon">🔒</span>
     </div>
 
     <button id="loginBtn" class="submit-btn">Submit</button>
 
-    <div class="links">
-      <a href="#" id="forgotPassword">Forgot Password?</a>
-    </div>
-
-    <p id="status"></p>
+    <p id="status" class="status-msg"></p>
   </div>
 
+  <!-- Scripts -->
+  <script src="js/neural-background.js"></script>
   <script type="module" src="js/auth.js"></script>
 </body>
 </html>

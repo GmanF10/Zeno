@@ -25,7 +25,7 @@ const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const loginBtn = document.getElementById("loginBtn");
 const statusEl = document.getElementById("status");
-const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+const forgotPasswordLink = document.getElementById("forgotPasswordLink"); // Remove this line if no forgot password link
 
 // Firebase auth error messages
 const firebaseErrorMessages = {
@@ -67,25 +67,28 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Enter") loginUser();
 });
 
-forgotPasswordLink.addEventListener("click", async (e) => {
-  e.preventDefault();
-  const email = emailInput.value.trim();
+// Forgot Password link handler - remove if forgotPasswordLink not present in HTML
+if (forgotPasswordLink) {
+  forgotPasswordLink.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
 
-  if (!email) {
-    setStatus("⚠️ Please enter your email above to reset your password.", true);
-    return;
-  }
+    if (!email) {
+      setStatus("⚠️ Please enter your email above to reset your password.", true);
+      return;
+    }
 
-  try {
-    await sendPasswordResetEmail(auth, email);
-    setStatus(`✅ Password reset email sent to ${email}. Check your inbox.`);
-  } catch (error) {
-    const msg = firebaseErrorMessages[error.code] || "❌ Unable to send reset email.";
-    setStatus(msg, true);
-  }
-});
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setStatus(`✅ Password reset email sent to ${email}. Check your inbox.`);
+    } catch (error) {
+      const msg = firebaseErrorMessages[error.code] || "❌ Unable to send reset email.";
+      setStatus(msg, true);
+    }
+  });
+}
 
-// Monitor auth state
+// Monitor auth state changes
 onAuthStateChanged(auth, (user) => {
   if (user) {
     setStatus(`✅ Logged in as ${user.email}`);
