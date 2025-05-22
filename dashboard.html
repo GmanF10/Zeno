@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zeno Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <div class="background"></div>
+
+  <div class="container">
+    <h2>Welcome to Your Dashboard</h2>
+    <p>You are successfully logged in.</p>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+  <script type="module">
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCHkSQPSm6la7b9E8O_Tc3YMI-FWWQzt4g",
+      authDomain: "zeno-14a48.firebaseapp.com",
+      projectId: "zeno-14a48",
+      storageBucket: "zeno-14a48.appspot.com",
+      messagingSenderId: "416659613054",
+      appId: "1:416659613054:web:37e45bf1cc7b9bb9c77f2f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "login.html";
+    });
+  </script>
+
+</body>
+</html>
+<!-- Compare this snippet from styles.css: -->
+/* styles.css */ 
