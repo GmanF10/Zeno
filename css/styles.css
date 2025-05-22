@@ -14,17 +14,6 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Neural network canvas background */
-#neuralCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  background: #0b0b0f;
-}
-
 /* Container for login form */
 .container {
   position: relative;
@@ -71,8 +60,8 @@ input[type="password"] {
 }
 
 /* Icons inside input - positioned relative to input group */
-.input-icon, /* new combined selector */
-.icon {  /* also style your .icon class if used */
+.input-icon,
+.icon {
   position: absolute;
   right: 15px;
   top: 50%;

@@ -25,7 +25,7 @@ const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const loginBtn = document.getElementById("loginBtn");
 const statusEl = document.getElementById("status");
-const forgotPasswordLink = document.getElementById("forgotPasswordLink"); // Remove this line if no forgot password link
+const forgotPasswordLink = document.getElementById("forgotPasswordLink");
 
 // Firebase auth error messages
 const firebaseErrorMessages = {
@@ -42,7 +42,9 @@ function setStatus(message, isError = false) {
 }
 
 // Handle login
-async function loginUser() {
+async function loginUser(event) {
+  if (event) event.preventDefault();
+
   const email = emailInput.value.trim();
   const password = passwordInput.value;
 
@@ -64,10 +66,9 @@ async function loginUser() {
 // Event listeners
 loginBtn.addEventListener("click", loginUser);
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") loginUser();
+  if (e.key === "Enter") loginUser(e);
 });
 
-// Forgot Password link handler - remove if forgotPasswordLink not present in HTML
 if (forgotPasswordLink) {
   forgotPasswordLink.addEventListener("click", async (e) => {
     e.preventDefault();
