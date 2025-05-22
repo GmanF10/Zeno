@@ -5,12 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Welcome to Zeno</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* Button style (should match your styles.css for consistency) */
+    #loginBtn {
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.5s ease;
+      position: relative;
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    /* Animation keyframes for expand */
+    @keyframes expandToFull {
+      to {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        top: 0;
+        left: 0;
+        position: fixed;
+        transform: none;
+      }
+    }
+
+    /* Class to trigger the expansion */
+    .expand {
+      animation: expandToFull 0.5s forwards;
+    }
+
+    /* Center container for demo */
+    .container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>Welcome to Zeno</h1>
     <p>Your secure login system.</p>
-    <a href="login.html"><button class="btn-primary">Go to Login</button></a>
+    <button id="loginBtn">Login</button>
   </div>
+
+  <script>
+    const loginBtn = document.getElementById('loginBtn');
+
+    loginBtn.addEventListener('click', () => {
+      // Add expand class to trigger animation
+      loginBtn.classList.add('expand');
+
+      // Disable button during animation
+      loginBtn.disabled = true;
+
+      // After animation ends, redirect to login page
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 500); // match animation duration
+    });
+  </script>
 </body>
 </html>
