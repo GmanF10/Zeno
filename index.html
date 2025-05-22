@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Private Website</title>
+</head>
+<body>
+  <script>
+    const password = "ImaGoober1@3"; // Change this password
+    let entered = prompt("Enter password to access this site:");
+    if (entered !== password) {
+      alert("Access denied!");
+      window.location.href = "https://google.com"; // Redirect away if wrong password
+    }
+  </script>
+  <h1>Welcome to your private website!</h1>
+  <p>Only invited users can see this content.</p>
+</body>
+</html>
