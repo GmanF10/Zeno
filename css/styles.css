@@ -10,6 +10,8 @@ html, body {
   height: 100%;
   background: #0b0b0f; /* fallback background color */
   overflow: hidden; /* prevent scrollbars from canvas */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Neural network canvas background */
@@ -47,6 +49,11 @@ html, body {
   text-shadow: 0 0 6px #39ff14;
 }
 
+/* Input group wrapper for positioning icons */
+.input-group {
+  position: relative;
+}
+
 /* Input fields */
 input[type="email"],
 input[type="password"] {
@@ -63,8 +70,9 @@ input[type="password"] {
   position: relative;
 }
 
-/* Icons inside input - positioned via container or separate spans */
-.input-icon {
+/* Icons inside input - positioned relative to input group */
+.input-icon, /* new combined selector */
+.icon {  /* also style your .icon class if used */
   position: absolute;
   right: 15px;
   top: 50%;
@@ -94,11 +102,18 @@ button#loginBtn:hover {
   box-shadow: 0 0 20px #2ed700;
 }
 
+/* Button focus for accessibility */
+button#loginBtn:focus {
+  outline: 2px solid #2ed700;
+  outline-offset: 2px;
+}
+
 /* Status messages */
 #status {
   margin-top: 15px;
   text-align: center;
   font-weight: 600;
+  color: #e0e0e0;
 }
 
 /* Responsive tweaks */
