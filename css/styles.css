@@ -1,139 +1,106 @@
 /* Reset and base styles */
-html, body {
+* {
   margin: 0;
   padding: 0;
-  height: 100%;
-  background: #111; /* clean dark background */
-  overflow: hidden;
-  position: relative;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: white;
+  box-sizing: border-box;
 }
 
-/* Oval particle background container behind the login box */
-#particle-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 700px;
-  height: 400px;
-  margin-left: -350px;
-  margin-top: -200px;
-  border-radius: 50% / 60%; /* oval shape */
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  z-index: 1;
+}
+
+/* Background overlay (optional visual flair) */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.04) 0%, transparent 70%);
   pointer-events: none;
-  box-shadow: 0 0 80px rgba(0, 255, 255, 0.3);
-  background: transparent;
 }
 
 /* Login container box */
 .container {
-  position: relative;
-  z-index: 2;
-  width: 320px;
-  padding: 30px 25px;
-  margin: 80px auto;
-  background: rgba(0, 0, 0, 0.85);
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05); /* more transparent */
+  backdrop-filter: blur(15px);
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 400px;
   text-align: center;
-  backdrop-filter: blur(8px);
+  color: white;
 }
 
-/* Heading */
+/* Title */
 .container h2 {
-  margin-bottom: 25px;
-  font-size: 1.6rem;
-  color: #0ff;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 /* Input fields */
-input[type="email"],
-input[type="password"] {
+.container input[type="email"],
+.container input[type="password"] {
   width: 100%;
   padding: 12px 15px;
-  margin: 12px 0;
-  border-radius: 8px;
-  border: 1px solid #333;
-  background-color: #1a1a1a;
+  margin: 10px 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
-  font-size: 1rem;
-  box-sizing: border-box;
-  transition: border-color 0.3s;
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
-  outline: none;
-  border-color: #0ff;
+.container input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
-/* Remember me checkbox */
-.remember-me {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: 0.9rem;
-  margin-top: 8px;
-  color: #aaa;
-  gap: 8px;
-}
-
-/* Login button */
+/* Submit button */
 button#loginBtn {
   width: 100%;
-  margin-top: 20px;
   padding: 12px;
-  font-size: 1rem;
-  font-weight: bold;
+  margin-top: 20px;
+  background: #4caf50;
   border: none;
-  border-radius: 8px;
-  background: linear-gradient(90deg, #0ff, #00dddd);
-  color: #000;
+  border-radius: 10px;
+  font-size: 16px;
+  color: white;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
+  transition: background 0.3s ease;
 }
 
 button#loginBtn:hover {
-  background: linear-gradient(90deg, #00dddd, #0ff);
-  transform: scale(1.03);
+  background: #45a049;
 }
 
-/* Links below the button */
+/* Forgot password link */
 .links {
-  margin-top: 16px;
-  font-size: 0.85rem;
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
 }
 
 .links a {
-  color: #0ff;
-  margin: 0 10px;
+  color: #87cefa;
   text-decoration: none;
+  transition: color 0.2s;
 }
 
 .links a:hover {
-  text-decoration: underline;
+  color: #ffffff;
 }
 
-/* Status message (e.g., login error) */
+/* Status message */
 #status {
   margin-top: 15px;
-  font-size: 0.9rem;
-  color: #f88;
-}
-
-/* Responsive tweaks */
-@media (max-width: 400px) {
-  .container {
-    width: 90%;
-    padding: 25px 15px;
-  }
-
-  #particle-container {
-    width: 90vw;
-    height: 50vh;
-    margin-left: -45vw;
-    margin-top: -25vh;
-  }
+  font-size: 14px;
 }
