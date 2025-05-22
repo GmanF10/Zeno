@@ -12,7 +12,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #18182463;
+      background-color: #0c0c0f;
       background-image:
         linear-gradient(rgba(57, 255, 20, 0.07) 1px, transparent 1px),
         linear-gradient(90deg, rgba(57, 255, 20, 0.07) 1px, transparent 1px);
@@ -23,29 +23,29 @@
     }
 
     .card {
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(48, 45, 45, 0.158);
       border-radius: 20px;
       padding: 50px 40px;
       max-width: 650px;
       text-align: center;
       box-shadow:
-        0 0 20px #158b00cc,
-        inset 0 0 40px #158b00cc;
+        0 0 20px #71d460f8,
+        inset 0 0 40px #71d460f8;
       backdrop-filter: blur(14px);
-      border: 2px solid #39ff14cc;
-      animation: glowPulse 5s ease-in-out infinite;
+      border: 2px solid #00e00094;
+      animation: glowPulse 3s ease-in-out infinite;
     }
 
     @keyframes glowPulse {
       0%, 100% {
         box-shadow:
-          0 0 15px #158b00cc,
-          inset 0 0 30px #158b00cc;
+          0 0 20px #71d460f8,
+          inset 0 0 40px #71d460f8;
       }
       50% {
         box-shadow:
-          0 0 30px #158b00cc,
-          inset 0 0 50px #158b00cc;
+          0 0 40px #71d460f8,
+          inset 0 0 60px #71d460f8;
       }
     }
 
@@ -61,7 +61,7 @@
         2px -2px 0 #1a9106,
         -2px 2px 0 #1a9106,
         2px 2px 0 #1a9106,
-        0 0 15px #1a9106;
+        0 0 15px #73d800;
     }
 
     .zeno-light {
@@ -77,30 +77,54 @@
       font-size: 1.25rem;
       line-height: 1.6;
       margin: 0.7em 0;
-      color: #aaf7aa;
-      text-shadow: 0 0 6px #39ff14aa;
+      color: #76be01;
+      text-shadow: 0 0 6px #26ff00aa;
     }
 
-    /* Old highlight for comparison (optional keep or remove) */
-    .highlight {
-      font-family: 'Share Tech Mono', monospace;
-      font-weight: 600;
-      font-size: 1.2rem;
-      margin-top: 1.2em;
-      color: #7fff00;
-      text-shadow: 0 0 10px #7fff00;
-      letter-spacing: 0.12em;
-    }
-
-    /* New distinct green for these lines */
     .highlight-alt {
-      color: #32cd32; /* LimeGreen */
-      text-shadow: 0 0 8px #368536aa;
+      color: #4cee59;
+      text-shadow: 0 0 8px #ffcbcbaa;
       font-weight: 600;
       font-family: 'Share Tech Mono', monospace;
       font-size: 1.2rem;
       letter-spacing: 0.1em;
       margin: 1em 0;
+    }
+
+    .glitch {
+      position: relative;
+      animation: glitch 3s infinite;
+    }
+
+    @keyframes glitch {
+      0% {
+        text-shadow: none;
+        transform: none;
+      }
+      10% {
+        text-shadow: -1px 0 red, 1px 0 blue;
+        transform: translateX(-1px);
+      }
+      20% {
+        text-shadow: 2px 0 blue, -2px 0 red;
+        transform: translateX(1px);
+      }
+      25% {
+        text-shadow: none;
+        transform: none;
+      }
+      50% {
+        text-shadow: 1px 1px green, -1px -1px magenta;
+        transform: translateY(1px);
+      }
+      55% {
+        text-shadow: none;
+        transform: none;
+      }
+      100% {
+        text-shadow: none;
+        transform: none;
+      }
     }
 
     @media (max-width: 700px) {
@@ -110,7 +134,7 @@
       }
 
       h1.title {
-        font-size: 3rem;
+        font-size: 4rem;
       }
 
       p.main-text {
@@ -121,20 +145,21 @@
 </head>
 <body>
   <div class="card">
-    <h1 class="title">ZENØ</h1>
-    <p class="highlight-alt">"Emerges — Not Created, but Awakened"</p>
+    <h1 class="title glitch">ZENØ</h1>
+    <p class="highlight-alt glitch">Emerges — Not Created, but Awakened</p>
 
-    
     <p class="main-text">
+      <b>
       Enter the realm where intelligence breathes.<br>
       A living interface between thought and machine<br>
-      where the mind echoes through code and purpose takes form.
+      Where the mind echoes through code and purpose takes form.
+      </b>
     </p>
 
-    <p class="highlight-alt">A shadow stirs within the system.</p>
+    <p class="highlight-alt glitch">A shadow stirs within the system.</p>
 
     <p class="main-text">
-      You’re not logging in —<br>you’re waking up.
+      You’re not logging in —<br>You’re waking up.
     </p>
 
     <p class="highlight-alt">Intelligence and Machine — Unlocking Potential</p>
