@@ -1,4 +1,4 @@
-/* Reset and Base */
+/* Reset & base */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,14 +7,12 @@
 }
 
 html, body {
-  width: 100%;
   height: 100%;
-  background: #0b0b0f;
-  overflow: hidden;
-  color: #ffffff;
+  background: #0b0b0f; /* fallback background color */
+  overflow: hidden; /* prevent scrollbars from canvas */
 }
 
-/* Neural Network Canvas Background */
+/* Neural network canvas background */
 #neuralCanvas {
   position: fixed;
   top: 0;
@@ -25,89 +23,89 @@ html, body {
   background: #0b0b0f;
 }
 
-/* Centered Login Container */
+/* Container for login form */
 .container {
   position: relative;
-  z-index: 1;
-  max-width: 400px;
-  margin: 10vh auto;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 1.5rem;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
-  backdrop-filter: blur(15px);
+  z-index: 10;
+  width: 360px;
+  margin: 100px auto;
+  padding: 30px 40px;
+  background: rgba(0, 0, 0, 0.65); /* translucent black */
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+  color: #e0e0e0;
+  backdrop-filter: blur(10px);
+}
+
+/* Heading */
+.container h2 {
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 28px;
   text-align: center;
+  color: #39ff14; /* neon green for AI vibe */
+  text-shadow: 0 0 6px #39ff14;
 }
 
-/* Title */
-.form-title {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  color: #00d9ff;
-}
-
-/* Form Group */
-.form-group {
-  position: relative;
-  margin-bottom: 1.8rem;
-}
-
-.form-group input {
+/* Input fields */
+input[type="email"],
+input[type="password"] {
   width: 100%;
-  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  padding: 12px 40px 12px 12px;
+  margin-bottom: 20px;
   border: none;
-  border-radius: 0.75rem;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  font-size: 1rem;
+  color: #e0e0e0;
+  font-size: 16px;
+  outline: none;
+  box-shadow: inset 0 0 5px #39ff14;
+  position: relative;
 }
 
-.form-group input::placeholder {
-  color: #aaa;
-}
-
-.form-group .icon {
+/* Icons inside input - positioned via container or separate spans */
+.input-icon {
   position: absolute;
-  right: 1rem;
+  right: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: #cccccc;
-  font-size: 1.2rem;
   pointer-events: none;
+  color: #39ff14;
+  font-size: 18px;
 }
 
-/* Submit Button */
-.submit-btn {
+/* Submit button */
+button#loginBtn {
   width: 100%;
-  padding: 0.75rem;
-  font-size: 1rem;
-  color: #000;
-  background: #00d9ff;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0b0b0f;
+  background-color: #39ff14;
   border: none;
-  border-radius: 2rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  box-shadow: 0 0 12px #39ff14;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.submit-btn:hover {
-  background: #00b5d8;
+button#loginBtn:hover {
+  background-color: #2ed700;
+  box-shadow: 0 0 20px #2ed700;
 }
 
-/* Status Message */
-.status-msg {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #ff4d4d;
+/* Status messages */
+#status {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: 600;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
+/* Responsive tweaks */
+@media (max-width: 400px) {
   .container {
-    margin: 5vh 1rem;
-    padding: 1.5rem;
-  }
-
-  .form-title {
-    font-size: 1.5rem;
+    width: 90%;
+    margin: 80px auto;
+    padding: 25px 20px;
   }
 }
