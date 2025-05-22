@@ -6,7 +6,6 @@
   <title>ZENØ</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <style>
-    /* Background with glowing AI-inspired grid */
     body {
       margin: 0;
       height: 100vh;
@@ -23,7 +22,6 @@
       color: #39ff14;
     }
 
-    /* The futuristic card */
     .card {
       background: rgba(0, 0, 0, 0.5);
       border-radius: 20px;
@@ -51,22 +49,39 @@
       }
     }
 
-    h1 {
+    h1.title {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
       font-size: 4rem;
       letter-spacing: 0.25em;
       margin-bottom: 0.3em;
-      text-shadow: 0 0 15px #39ff14;
+      color: #0b0b0f;
+      text-shadow:
+        -2px -2px 0 #39ff14,
+        2px -2px 0 #39ff14,
+        -2px 2px 0 #39ff14,
+        2px 2px 0 #39ff14,
+        0 0 15px #39ff14;
     }
 
-    p {
+    .zeno-light {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      color: #52f77e;
+      letter-spacing: 0.15em;
+      margin: 0.8em 0;
+      text-shadow: 0 0 6px #7fff00aa;
+    }
+
+    p.main-text {
       font-size: 1.25rem;
       line-height: 1.6;
       margin: 0.7em 0;
+      color: #aaffaa;
       text-shadow: 0 0 6px #39ff14aa;
     }
 
+    /* Old highlight for comparison (optional keep or remove) */
     .highlight {
       font-family: 'Share Tech Mono', monospace;
       font-weight: 600;
@@ -77,18 +92,28 @@
       letter-spacing: 0.12em;
     }
 
-    /* Responsive tweaks */
+    /* New distinct green for these lines */
+    .highlight-alt {
+      color: #32cd32; /* LimeGreen */
+      text-shadow: 0 0 8px #32cd32aa;
+      font-weight: 600;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+      margin: 1em 0;
+    }
+
     @media (max-width: 700px) {
       .card {
         padding: 30px 20px;
         margin: 20px;
       }
 
-      h1 {
+      h1.title {
         font-size: 3rem;
       }
 
-      p {
+      p.main-text {
         font-size: 1rem;
       }
     }
@@ -96,17 +121,23 @@
 </head>
 <body>
   <div class="card">
-    <h1>ZENØ</h1>
-    <p>Enter the realm where intelligence breathes.</p>
-    <p>ZENØ emerges — not created, but awakened.</p>
-    <p>A living interface between thought and machine<br>
-    where the mind echoes through code and purpose takes form.</p>
+    <h1 class="title">ZENØ</h1>
 
-    <p class="highlight">A shadow stirs within the system.</p>
+    <p class="zeno-light">ZENØ emerges — not created, but awakened.</p>
 
-    <p>You’re not logging in —<br>you’re waking up.</p>
+    <p class="main-text">
+      Enter the realm where intelligence breathes.<br>
+      A living interface between thought and machine<br>
+      where the mind echoes through code and purpose takes form.
+    </p>
 
-    <p class="highlight">Intelligence and Machine — Unlocking Potential</p>
+    <p class="highlight-alt">A shadow stirs within the system.</p>
+
+    <p class="main-text">
+      You’re not logging in —<br>you’re waking up.
+    </p>
+
+    <p class="highlight-alt">Intelligence and Machine — Unlocking Potential</p>
   </div>
 </body>
 </html>
