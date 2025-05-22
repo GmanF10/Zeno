@@ -3,84 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login</title>
+  <title>Zeno Login</title>
   <link rel="stylesheet" href="css/styles.css" />
-  <style>
-    /* Fade in effect for the login container */
-    .container {
-      opacity: 0;
-      animation: fadeIn 0.6s forwards;
-      animation-delay: 0.2s;
-      background: rgba(255 255 255 / 0.15); /* transparent */
-      padding: 30px;
-      border-radius: 10px;
-      width: 320px;
-      box-sizing: border-box;
-      margin: 100px auto;
-      backdrop-filter: blur(10px);
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-
-    input[type="email"],
-    input[type="password"] {
-      width: 100%;
-      padding: 12px 15px;
-      margin: 10px 0;
-      border-radius: 6px;
-      border: none;
-      font-size: 1rem;
-      box-sizing: border-box;
-      background: rgba(255 255 255 / 0.3);
-      color: white;
-    }
-
-    input::placeholder {
-      color: #ddd;
-    }
-
-    button#loginBtn {
-      width: 100%;
-      padding: 12px;
-      background-color: #4caf50;
-      color: white;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 15px;
-      transition: background-color 0.3s ease;
-    }
-
-    button#loginBtn:hover {
-      background-color: #45a049;
-    }
-
-    /* Body styling for dark background */
-    body {
-      background-color: #111;
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  </style>
 </head>
 <body>
-  <div class="container">
+
+  <div class="background"></div>
+
+  <div class="container login-container">
     <h2>Login</h2>
+
     <input type="email" id="email" placeholder="Email" autocomplete="off" />
     <input type="password" id="password" placeholder="Password" autocomplete="off" />
-    <button id="loginBtn">Submit</button>
+
+    <button id="loginBtn" class="btn-submit">Submit</button>
+
+    <div class="links">
+      <a href="#" id="forgotPassword">Forgot Password?</a>
+    </div>
+
     <p id="status"></p>
   </div>
 

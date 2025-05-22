@@ -1,129 +1,130 @@
-/* Global resets */
+/* General Reset */
 * {
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
 
-/* Body for both pages */
-body {
+body, html {
   margin: 0;
-  background-color: #111;
-  color: #fff;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121212;
+  color: #eee;
+  height: 100%;
 }
 
-/* Container common styles */
+/* Container for content */
 .container {
-  background: rgba(255 255 255 / 0.15); /* Transparent glass effect */
-  backdrop-filter: blur(10px);
+  max-width: 400px;
+  margin: 5% auto;
+  background: #222;
+  padding: 30px 40px;
   border-radius: 10px;
-  padding: 30px;
-  width: 320px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.7);
   text-align: center;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Headings */
-h1, h2 {
-  margin-bottom: 20px;
+/* Login container with transparent background */
+.login-container {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Inputs */
+/* Input fields */
 input[type="email"],
 input[type="password"] {
   width: 100%;
   padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 6px;
+  margin: 15px 0 25px 0;
   border: none;
+  border-radius: 5px;
   font-size: 1rem;
-  background: rgba(255 255 255 / 0.3);
-  color: white;
-  outline-offset: 2px;
-  outline-color: #4caf50;
+  background: #333;
+  color: #eee;
   transition: background-color 0.3s ease;
 }
 
-input::placeholder {
-  color: #ddd;
+input[type="email"]:focus,
+input[type="password"]:focus {
+  background: #444;
+  outline: none;
 }
 
-/* Button shared styles */
-button#loginBtn {
-  width: 100%;
-  padding: 12px;
-  background-color: #4caf50;
-  color: white;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+/* Link styles */
+.links {
   margin-top: 15px;
-  transition: background-color 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  z-index: 10;
 }
 
-button#loginBtn:hover {
-  background-color: #45a049;
+.links a {
+  color: #4caf50;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.links a:hover,
+.links a:focus {
+  color: #81c784;
+  outline: none;
 }
 
 /* Status message */
 #status {
-  margin-top: 15px;
+  margin-top: 20px;
   font-weight: 600;
 }
 
-/* Index page specific button style for expansion */
-#indexBtnContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  height: 100vh;
+/* Shared primary button style (for index & dashboard logout) */
+.btn-primary {
+  background-color: #4caf50; /* Green */
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
   width: 100%;
-  background: #111;
-  color: #fff;
-  text-align: center;
+  max-width: 100%;
 }
 
-#loginBtn.expand {
-  animation: expandToFull 0.5s forwards;
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #45a049;
+  outline: none;
+}
+
+/* Submit button style for login page (transparent with green border) */
+.btn-submit {
+  background: transparent;
+  border: 2px solid #4caf50;
+  color: #4caf50;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+}
+
+.btn-submit:hover,
+.btn-submit:focus {
+  background-color: #4caf50;
+  color: white;
+  outline: none;
+}
+
+/* Background styling */
+.background {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 150px; /* starting width */
-  height: 50px;  /* starting height */
-  transform: translate(-50%, -50%);
-  border-radius: 6px;
-  z-index: 9999;
-}
-
-@keyframes expandToFull {
-  to {
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    border-radius: 0;
-    transform: none;
-  }
-}
-
-/* Login page container fade-in */
-.login-container {
-  opacity: 0;
-  animation: fadeIn 0.6s forwards;
-  animation-delay: 0.2s;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a, #121212);
+  z-index: -1;
 }
