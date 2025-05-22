@@ -10,8 +10,6 @@ html, body {
   height: 100%;
   background: #0b0b0f; /* fallback background color */
   overflow: hidden; /* prevent scrollbars from canvas */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Container for login form */
@@ -38,11 +36,6 @@ html, body {
   text-shadow: 0 0 6px #39ff14;
 }
 
-/* Input group wrapper for positioning icons */
-.input-group {
-  position: relative;
-}
-
 /* Input fields */
 input[type="email"],
 input[type="password"] {
@@ -59,9 +52,8 @@ input[type="password"] {
   position: relative;
 }
 
-/* Icons inside input - positioned relative to input group */
-.input-icon,
-.icon {
+/* Icons inside input - positioned via container or separate spans */
+.input-icon {
   position: absolute;
   right: 15px;
   top: 50%;
@@ -71,10 +63,9 @@ input[type="password"] {
   font-size: 18px;
 }
 
-/* Submit button */
-button#loginBtn {
-  width: 100%;
-  padding: 14px;
+/* Unified button styles */
+.button {
+  padding: 14px 20px;
   font-size: 18px;
   font-weight: 600;
   color: #0b0b0f;
@@ -84,17 +75,14 @@ button#loginBtn {
   cursor: pointer;
   box-shadow: 0 0 12px #39ff14;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  user-select: none;
 }
 
-button#loginBtn:hover {
+.button:hover {
   background-color: #2ed700;
   box-shadow: 0 0 20px #2ed700;
-}
-
-/* Button focus for accessibility */
-button#loginBtn:focus {
-  outline: 2px solid #2ed700;
-  outline-offset: 2px;
 }
 
 /* Status messages */
@@ -102,7 +90,6 @@ button#loginBtn:focus {
   margin-top: 15px;
   text-align: center;
   font-weight: 600;
-  color: #e0e0e0;
 }
 
 /* Responsive tweaks */
