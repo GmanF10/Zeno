@@ -13,14 +13,13 @@
   <div class="container">
     <h2>Login to Zeno</h2>
 
-    <!-- Form with autocomplete disabled -->
-    <form id="loginForm" autocomplete="off">
-      <input type="email" id="email" placeholder="Email" autocomplete="off" required />
-      <input type="password" id="password" placeholder="Password" autocomplete="off" required />
+    <form id="loginForm" autocomplete="off" aria-label="Login Form">
+      <input type="email" id="email" placeholder="Email" autocomplete="off" required aria-required="true" />
+      <input type="password" id="password" placeholder="Password" autocomplete="off" required aria-required="true" />
       <button type="submit" id="loginBtn">Login</button>
     </form>
 
-    <p id="status"></p>
+    <p id="status" role="alert" aria-live="polite"></p>
   </div>
 
   <script type="module" src="js/auth.js"></script>

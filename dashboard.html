@@ -17,34 +17,18 @@
   </div>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCHkSQPSm6la7b9E8O_Tc3YMI-FWWQzt4g",
-      authDomain: "zeno-14a48.firebaseapp.com",
-      projectId: "zeno-14a48",
-      storageBucket: "zeno-14a48.appspot.com",
-      messagingSenderId: "416659613054",
-      appId: "1:416659613054:web:37e45bf1cc7b9bb9c77f2f"
-    };
+    const auth = getAuth();
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Redirect to login if user is not authenticated
-    onAuthStateChanged(auth, user => {
-      if (!user) {
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      try {
+        await signOut(auth);
         window.location.href = "login.html";
+      } catch (error) {
+        alert("Logout failed: " + error.message);
       }
     });
-
-    // Logout button functionality
-    document.getElementById("logoutBtn").addEventListener("click", async () => {
-      await signOut(auth);
-      window.location.href = "login.html";
-    });
   </script>
-
 </body>
 </html>

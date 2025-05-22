@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyCHkSQPSm6la7b9E8O_Tc3YMI-FWWQzt4g",
   authDomain: "zeno-14a48.firebaseapp.com",
@@ -14,33 +15,46 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// DOM Elements
 const loginForm = document.getElementById("loginForm");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
 const statusEl = document.getElementById("status");
 
-// Login form submission handler
-loginForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
+// Set status message with color based on error or success
+const setStatus = (msg, isError = false) => {
+  statusEl.textContent = msg;
+  statusEl.style.color = isError ? "#ff7777" : "#00ff99";
+};
 
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
+// Handle login form submission
+const handleLogin = async (event) => {
+  event.preventDefault();
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
 
   if (!email || !password) {
-    statusEl.textContent = "⚠️ Please enter email and password.";
+    setStatus("⚠️ Please enter email and password.", true);
     return;
   }
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    window.location.href = "dashboard.html"; // Redirect to dashboard after login
+    window.location.href = "dashboard.html"; // Redirect on success
   } catch (error) {
-    statusEl.textContent = `❌ Login failed: ${error.message}`;
+    setStatus(`❌ Login failed: ${error.message}`, true);
   }
-});
+};
 
-// Redirect to login if not authenticated
-onAuthStateChanged(auth, user => {
+// Attach submit event listener if form exists
+if (loginForm) {
+  loginForm.addEventListener("submit", handleLogin);
+}
+
+// Redirect to login if user is not logged in and trying to access protected pages
+onAuthStateChanged(auth, (user) => {
   const onLoginPage = window.location.pathname.includes("login.html") || window.location.pathname === "/";
-
   if (!user && !onLoginPage) {
     window.location.href = "login.html";
   }

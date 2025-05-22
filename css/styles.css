@@ -1,13 +1,22 @@
-/* styles.css */
+:root {
+  --neon-blue: #00e5ff;
+  --neon-pink: #ff00e5;
+  --neon-pink-dark: #120026;
+  --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  --bg-opacity: rgba(20, 25, 35, 0.8);
+  --text-color: #e0e6f6;
+  --status-error: #ff7777;
+  --status-success: #00ff99;
+}
 
 body, html {
   margin: 0;
   padding: 0;
   height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background: var(--bg-gradient);
   overflow: hidden;
-  color: #e0e6f6;
+  color: var(--text-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,9 +42,9 @@ body, html {
 h2 {
   font-size: 3rem;
   text-align: center;
-  color: #00e5ff;
+  color: var(--neon-blue);
   text-shadow:
-    0 0 10px #00e5ff,
+    0 0 10px var(--neon-blue),
     0 0 20px #00bcd4,
     0 0 40px #00acc1,
     0 0 80px #00acc1;
@@ -45,44 +54,34 @@ h2 {
 /* Neon pink accent for button */
 button {
   background-color: transparent;
-  border: 2px solid #ff00e5;
-  color: #ff00e5;
+  border: 2px solid var(--neon-pink);
+  color: var(--neon-pink);
   padding: 10px 25px;
   font-size: 1.2rem;
   cursor: pointer;
   border-radius: 6px;
   transition: all 0.3s ease;
   box-shadow:
-    0 0 5px #ff00e5,
-    0 0 10px #ff00e5,
-    0 0 20px #ff00e5;
+    0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink);
 }
 
 button:hover {
-  background-color: #ff00e5;
-  color: #120026;
+  background-color: var(--neon-pink);
+  color: var(--neon-pink-dark);
   box-shadow:
-    0 0 20px #ff00e5,
-    0 0 40px #ff00e5,
-    0 0 80px #ff00e5;
-}
-
-/* Disabled login button style */
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  box-shadow: none;
-  color: #800060;
-  border-color: #800060;
-  background-color: transparent;
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink),
+    0 0 80px var(--neon-pink);
 }
 
 /* Input fields */
 input {
   background: rgba(255,255,255,0.1);
   border: none;
-  border-bottom: 2px solid #00e5ff;
-  color: #e0e6f6;
+  border-bottom: 2px solid var(--neon-blue);
+  color: var(--text-color);
   font-size: 1.2rem;
   margin: 10px 0;
   padding: 10px;
@@ -93,21 +92,18 @@ input {
 }
 
 input:focus {
-  border-color: #ff00e5;
-  box-shadow:
-    0 0 10px #ff00e5;
-  outline: 2px solid #ff00e5;
-  outline-offset: 2px;
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 10px var(--neon-pink);
 }
 
 /* Container for form */
 .container {
-  background: rgba(20, 25, 35, 0.8);
+  background: var(--bg-opacity);
   padding: 40px 60px;
   border-radius: 15px;
   box-shadow:
     0 0 15px #00e5ffaa,
-    0 0 30px #ff00e5aa;
+    0 0 30px var(--neon-pink-aa, #ff00e5aa);
   text-align: center;
   width: 360px;
 }
@@ -116,8 +112,6 @@ input:focus {
 #status {
   margin-top: 20px;
   font-weight: 600;
-  font-size: 1.1rem;
-  min-height: 24px; /* Prevent layout shift when text changes */
-  color: #ff00e5;
-  text-shadow: 0 0 8px #ff00e5;
+  min-height: 1.2em;
+  user-select: none;
 }
