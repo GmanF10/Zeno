@@ -1,46 +1,32 @@
-/* Reset and base styles */
-html, body {
+/* General Reset */
+* {
+  box-sizing: border-box;
+}
+
+body, html {
   margin: 0;
   padding: 0;
-  height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #111;
-  color: #fff;
-  overflow-x: hidden;
-}
-
-/* Background overlay */
-.background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  background-color: #121212;
+  color: #eee;
   height: 100%;
-  background: #222;
-  z-index: -1;
 }
 
-/* Container for login/dashboard */
+/* Container for content */
 .container {
   max-width: 400px;
-  margin: 80px auto;
-  padding: 40px 30px;
-  background: rgba(0, 0, 0, 0.75);
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
+  margin: 5% auto;
+  background: #222;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.7);
   text-align: center;
 }
 
-/* Headings */
-h1, h2 {
-  margin-bottom: 20px;
-  font-weight: 600;
-}
-
-/* Paragraphs */
-p {
-  margin-bottom: 30px;
-  font-size: 1.1rem;
+/* Login container with transparent background */
+.login-container {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* Input fields */
@@ -48,24 +34,48 @@ input[type="email"],
 input[type="password"] {
   width: 100%;
   padding: 12px 15px;
-  margin: 10px 0 20px 0;
-  border-radius: 6px;
-  border: 1px solid #444;
-  background: rgba(255, 255, 255, 0.1);
-  color: #eee;
+  margin: 15px 0 25px 0;
+  border: none;
+  border-radius: 5px;
   font-size: 1rem;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
+  background: #333;
+  color: #eee;
+  transition: background-color 0.3s ease;
 }
 
 input[type="email"]:focus,
 input[type="password"]:focus {
-  border-color: #4caf50;
+  background: #444;
   outline: none;
-  background: rgba(255, 255, 255, 0.15);
 }
 
-/* Buttons */
+/* Link styles */
+.links {
+  margin-top: 15px;
+}
+
+.links a {
+  color: #4caf50;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.links a:hover,
+.links a:focus {
+  color: #81c784;
+  outline: none;
+}
+
+/* Status message */
+#status {
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+/* Shared primary button style (for index & dashboard logout) */
 .btn-primary {
   background-color: #4caf50; /* Green */
   color: white;
@@ -86,41 +96,35 @@ input[type="password"]:focus {
   outline: none;
 }
 
-/* Links container (for forgot password, etc) */
-.links {
-  margin-top: 15px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-}
-
-.links a {
+/* Submit button style for login page (transparent with green border) */
+.btn-submit {
+  background: transparent;
+  border: 2px solid #4caf50;
   color: #4caf50;
-  text-decoration: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: color 0.2s ease;
+  user-select: none;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 100%;
 }
 
-.links a:hover,
-.links a:focus {
-  text-decoration: underline;
-  color: #3a8d40;
+.btn-submit:hover,
+.btn-submit:focus {
+  background-color: #4caf50;
+  color: white;
   outline: none;
 }
 
-/* Status message */
-#status {
-  margin-top: 20px;
-  min-height: 24px;
-  font-weight: 600;
-  font-size: 1rem;
-  user-select: none;
-}
-
-/* Responsive tweaks */
-@media (max-width: 480px) {
-  .container {
-    margin: 40px 15px;
-    padding: 30px 20px;
-  }
+/* Background styling */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a, #121212);
+  z-index: -1;
 }

@@ -3,36 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login</title>
+  <title>Zeno Login</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
   <div class="background"></div>
 
-  <div class="container transparent-box">
+  <div class="container login-container">
     <h2>Login</h2>
 
-    <input
-      type="email"
-      id="email"
-      placeholder="Email"
-      autocomplete="off"
-      required
-    />
+    <input type="email" id="email" placeholder="Email" autocomplete="off" />
+    <input type="password" id="password" placeholder="Password" autocomplete="off" />
 
-    <input
-      type="password"
-      id="password"
-      placeholder="Password"
-      autocomplete="off"
-      required
-    />
-
-    <button id="loginBtn">Submit</button>
+    <button id="loginBtn" class="btn-submit">Submit</button>
 
     <div class="links">
-      <a href="#" id="forgotPasswordLink">Forgot Password?</a>
+      <a href="#" id="forgotPassword">Forgot Password?</a>
     </div>
 
     <p id="status"></p>
