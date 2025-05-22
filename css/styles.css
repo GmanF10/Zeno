@@ -42,8 +42,8 @@ h2 {
   margin-bottom: 30px;
 }
 
-/* Neon pink accent for button */
-button#loginBtn {
+/* Buttons - use .btn class for all buttons */
+.btn {
   background-color: transparent;
   border: 2px solid #ff00e5;
   color: #ff00e5;
@@ -56,12 +56,9 @@ button#loginBtn {
     0 0 5px #ff00e5,
     0 0 10px #ff00e5,
     0 0 20px #ff00e5;
-  display: block;
-  margin: 0 auto 25px auto;
-  min-width: 160px;
 }
 
-button#loginBtn:hover {
+.btn:hover {
   background-color: #ff00e5;
   color: #120026;
   box-shadow:
@@ -71,8 +68,7 @@ button#loginBtn:hover {
 }
 
 /* Input fields */
-input[type="email"],
-input[type="password"] {
+input {
   background: rgba(255,255,255,0.1);
   border: none;
   border-bottom: 2px solid #00e5ff;
@@ -86,8 +82,7 @@ input[type="password"] {
   transition: border-color 0.3s ease;
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
+input:focus {
   border-color: #ff00e5;
   box-shadow:
     0 0 10px #ff00e5;
@@ -105,40 +100,35 @@ input[type="password"]:focus {
   width: 360px;
 }
 
-/* Align checkbox and label side by side */
+/* Remember Me checkbox and label */
 .remember-me {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 15px 0 25px 0;
+  gap: 10px;
+  margin: 15px 0;
   color: #e0e6f6;
   font-size: 1rem;
-  gap: 10px;
-  cursor: pointer;
 }
 
-.remember-me input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-}
-
-/* Style links container */
+/* Links container */
 .links {
-  text-align: center;
-  font-size: 0.9rem;
-  color: #b0c4d7;
-  user-select: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
 }
 
+/* Links styling */
 .links a {
   color: #ff00e5;
   text-decoration: none;
-  margin: 0 10px;
+  font-weight: 600;
+  font-size: 1rem;
   transition: color 0.3s ease;
 }
 
 .links a:hover {
-  color: #ff80ff;
+  color: #ff6af5;
   text-decoration: underline;
 }
