@@ -8,8 +8,10 @@
 </head>
 <body>
 
-  <div class="background"></div>
+  <!-- Particle effect container behind login -->
+  <div id="particle-container"></div>
 
+  <!-- Login form container -->
   <div class="container">
     <h2>Login to Zeno</h2>
 
@@ -31,6 +33,155 @@
 
     <p id="status"></p>
   </div>
+
+  <!-- Your auth.js script stays the same but no changes needed here -->
+
+  <script>
+    // Particle effect script (adjusted to target #particle-container)
+    var NUM_PARTICLES = ((ROWS = 70) * (COLS = 210)),
+        THICKNESS = Math.pow(80, 2),
+        SPACING = 4,
+        MARGIN = 80,
+        DRAG = 0.95,
+        EASE = 0.25,
+        container,
+        canvas,
+        ctx,
+        list,
+        w, h,
+        mx, my,
+        man,
+        tog,
+        particle;
+
+    particle = {
+      vx: 0,
+      vy: 0,
+      x: 0,
+      y: 0,
+      ox: 0,
+      oy: 0
+    };
+
+    function hslToRgb(h, s, l) {
+      s /= 100;
+      l /= 100;
+      let c = (1 - Math.abs(2 * l - 1)) * s;
+      let x = c * (1 - Math.abs((h / 60) % 2 - 1));
+      let m = l - c / 2;
+      let r = 0, g = 0, b = 0;
+      if (0 <= h && h < 60) [r, g, b] = [c, x, 0];
+      else if (60 <= h && h < 120) [r, g, b] = [x, c, 0];
+      else if (120 <= h && h < 180) [r, g, b] = [0, c, x];
+      else if (180 <= h && h < 240) [r, g, b] = [0, x, c];
+      else if (240 <= h && h < 300) [r, g, b] = [x, 0, c];
+      else if (300 <= h && h < 360) [r, g, b] = [c, 0, x];
+      r = Math.round((r + m) * 255);
+      g = Math.round((g + m) * 255);
+      b = Math.round((b + m) * 255);
+      return [r, g, b];
+    }
+
+    function getBaseHue(x, width) {
+      return (x / width) * 360;
+    }
+
+    function init() {
+      container = document.getElementById('particle-container');
+      canvas = document.createElement('canvas');
+      ctx = canvas.getContext('2d');
+      man = false;
+      tog = true;
+      list = [];
+
+      w = canvas.width = COLS * SPACING + MARGIN * 2;
+      h = canvas.height = ROWS * SPACING + MARGIN * 2;
+
+      container.style.width = w + 'px';
+      container.style.height = h + 'px';
+
+      container.appendChild(canvas);
+
+      container.style.marginLeft = Math.round(w * -0.5) + 'px';
+      container.style.marginTop = Math.round(h * -0.5) + 'px';
+
+      for (let i = 0; i < NUM_PARTICLES; i++) {
+        let p = Object.create(particle);
+        p.x = p.ox = MARGIN + SPACING * (i % COLS);
+        p.y = p.oy = MARGIN + SPACING * Math.floor(i / COLS);
+        list[i] = p;
+      }
+
+      container.addEventListener('mousemove', function (e) {
+        let bounds = container.getBoundingClientRect();
+        mx = e.clientX - bounds.left;
+        my = e.clientY - bounds.top;
+        man = true;
+      });
+
+      container.addEventListener('mouseleave', function () {
+        man = false;
+      });
+    }
+
+    function step() {
+      if (tog = !tog) {
+        if (!man) {
+          let t = +new Date() * 0.001;
+          mx = w * 0.5 + (Math.cos(t * 2.1) * Math.cos(t * 0.9) * w * 0.45);
+          my = h * 0.5 + (Math.sin(t * 3.2) * Math.tan(Math.sin(t * 0.8)) * h * 0.45);
+        }
+
+        for (let i = 0; i < NUM_PARTICLES; i++) {
+          let p = list[i];
+          let dx = mx - p.x;
+          let dy = my - p.y;
+          let d = dx * dx + dy * dy;
+          let f = -THICKNESS / d;
+
+          if (d < THICKNESS) {
+            let t = Math.atan2(dy, dx);
+            p.vx += f * Math.cos(t);
+            p.vy += f * Math.sin(t);
+          }
+
+          p.x += (p.vx *= DRAG) + (p.ox - p.x) * EASE;
+          p.y += (p.vy *= DRAG) + (p.oy - p.y) * EASE;
+        }
+      } else {
+        let imageData = ctx.createImageData(w, h);
+        let data = imageData.data;
+
+        for (let i = 0; i < NUM_PARTICLES; i++) {
+          let p = list[i];
+
+          let distX = mx - p.x;
+          let distY = my - p.y;
+          let dist = Math.sqrt(distX * distX + distY * distY);
+
+          let hue = getBaseHue(p.x, w);
+
+          let saturation = dist < 100 ? 100 : 60;
+          let lightness = dist < 100 ? 65 : 40;
+          let alpha = dist < 100 ? 1.0 : 0.6;
+
+          let [r, g, b] = hslToRgb(hue, saturation, lightness);
+
+          let n = (Math.floor(p.x) + Math.floor(p.y) * w) * 4;
+          data[n] = r;
+          data[n + 1] = g;
+          data[n + 2] = b;
+          data[n + 3] = 255 * alpha;
+        }
+
+        ctx.putImageData(imageData, 0, 0);
+      }
+      requestAnimationFrame(step);
+    }
+
+    init();
+    step();
+  </script>
 
   <script type="module" src="js/auth.js"></script>
 </body>
