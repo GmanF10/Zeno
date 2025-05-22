@@ -24,8 +24,8 @@ const passwordInput = document.getElementById("password");
 const rememberMeCheckbox = document.getElementById("rememberMe");
 const loginBtn = document.getElementById("loginBtn");
 const statusEl = document.getElementById("status");
-const forgotPasswordLink = document.getElementById("forgotPasswordLink");
-const forgotEmailLink = document.getElementById("forgotEmailLink");
+const forgotPasswordLink = document.getElementById("forgotPassword"); // Fixed ID here
+const forgotEmailLink = document.getElementById("forgotEmail");       // Fixed ID here
 
 // Firebase auth error codes to user-friendly messages
 const firebaseErrorMessages = {
@@ -73,7 +73,8 @@ async function loginUser() {
     await signInWithEmailAndPassword(auth, email, password);
     setStatus(`✅ Logged in as ${email}`);
     saveRememberedEmail(email);
-    // TODO: Redirect to dashboard or main app page here
+    // Redirect to dashboard after login success
+    window.location.href = "dashboard.html";
   } catch (error) {
     const msg = firebaseErrorMessages[error.code] || "❌ Login failed. Please check your credentials.";
     setStatus(msg, true);
