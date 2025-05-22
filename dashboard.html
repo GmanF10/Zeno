@@ -17,8 +17,8 @@
   </div>
 
   <script type="module">
-    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCHkSQPSm6la7b9E8O_Tc3YMI-FWWQzt4g",
@@ -32,6 +32,14 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+    // Redirect to login if user is not authenticated
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        window.location.href = "login.html";
+      }
+    });
+
+    // Logout button functionality
     document.getElementById("logoutBtn").addEventListener("click", async () => {
       await signOut(auth);
       window.location.href = "login.html";
@@ -40,5 +48,3 @@
 
 </body>
 </html>
-<!-- Compare this snippet from styles.css: -->
-/* styles.css */ 

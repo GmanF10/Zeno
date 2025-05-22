@@ -14,47 +14,34 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-const loginBtn = document.getElementById("loginBtn");
+const loginForm = document.getElementById("loginForm");
 const statusEl = document.getElementById("status");
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
 
-loginBtn.addEventListener("click", async () => {
-  const email = emailInput.value.trim();
-  const password = passwordInput.value;
+// Login form submission handler
+loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
 
   if (!email || !password) {
     statusEl.textContent = "⚠️ Please enter email and password.";
     return;
   }
 
-  loginBtn.disabled = true;
-  statusEl.textContent = "⏳ Logging in...";
-
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    statusEl.textContent = `✅ Logged in as ${email}`;
-    // Optionally redirect here
-    // window.location.href = "dashboard.html";
+    window.location.href = "dashboard.html"; // Redirect to dashboard after login
   } catch (error) {
     statusEl.textContent = `❌ Login failed: ${error.message}`;
-  } finally {
-    loginBtn.disabled = false;
   }
 });
 
-// Clear status when user types in email or password inputs
-emailInput.addEventListener("input", () => {
-  statusEl.textContent = "";
-});
-passwordInput.addEventListener("input", () => {
-  statusEl.textContent = "";
-});
-
+// Redirect to login if not authenticated
 onAuthStateChanged(auth, user => {
-  if (user) {
-    statusEl.textContent = `✅ Logged in as ${user.email}`;
-  } else {
-    statusEl.textContent = "🔒 Not logged in.";
+  const onLoginPage = window.location.pathname.includes("login.html") || window.location.pathname === "/";
+
+  if (!user && !onLoginPage) {
+    window.location.href = "login.html";
   }
 });
