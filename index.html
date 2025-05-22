@@ -3,151 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ZENØ – AI Access Portal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <title>ZENØ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <style>
     body {
-      background: #0b0b0f;
+      background-color: #0b0b0f;
       color: #39ff14;
-      font-family: 'Orbitron', monospace, sans-serif;
-      height: 100vh;
+      font-family: 'Rajdhani', sans-serif;
       margin: 0;
+      padding: 20px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      position: relative;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
       overflow: hidden;
     }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background:
-        linear-gradient(#39ff14 1px, transparent 1px),
-        linear-gradient(90deg, #39ff14 1px, transparent 1px);
-      background-size: 60px 60px;
-      opacity: 0.04;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .top-nav {
-      position: fixed;
-      top: 20px;
-      right: 30px;
-      display: flex;
-      gap: 15px;
-      z-index: 10;
-    }
-
-    .btn-primary, .btn-secondary {
-      padding: 12px 28px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 0 10px #39ff14;
-      color: #0b0b0f;
-      background-color: #39ff14;
-      transition: box-shadow 0.3s ease, background-color 0.3s ease;
-      text-decoration: none;
-    }
-
-    .btn-primary:hover {
-      background-color: #2ed700;
-      box-shadow: 0 0 20px #2ed700;
-    }
-
-    .btn-secondary {
-      background-color: transparent;
-      color: #39ff14;
-      border: 2px solid #39ff14;
-      box-shadow: 0 0 12px #39ff14;
-    }
-
-    .btn-secondary:hover {
-      background-color: #39ff14;
-      color: #0b0b0f;
-      box-shadow: 0 0 20px #39ff14;
-    }
-
-    .main-card {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 60px 50px;
-      border-radius: 16px;
-      backdrop-filter: blur(14px);
-      box-shadow: 0 0 30px rgba(57, 255, 20, 0.25);
-      text-align: center;
-      z-index: 5;
-      max-width: 700px;
-      margin: 0 20px;
-      border: 1px solid rgba(57, 255, 20, 0.2);
-    }
-
     h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
       font-size: 4rem;
-      margin-bottom: 20px;
+      letter-spacing: 0.25em;
+      margin-bottom: 0.3em;
       text-shadow: 0 0 12px #39ff14;
-      letter-spacing: 0.18em;
     }
-
     p {
       font-size: 1.25rem;
-      color: #d0ffd0;
-      text-shadow: 0 0 8px #39ff14;
-      line-height: 1.7;
+      line-height: 1.6;
+      margin: 0.7em 0;
+      text-shadow: 0 0 5px #39ff14aa;
     }
-
-    .tagline {
-      margin-top: 10px;
-      font-size: 1.1rem;
-      font-style: italic;
-      color: #8fff8f;
-      opacity: 0.8;
-    }
-
-    @media (max-width: 600px) {
-      .main-card {
-        padding: 30px 20px;
-      }
-
-      h1 {
-        font-size: 2.8rem;
-      }
-
-      p {
-        font-size: 1rem;
-      }
+    .highlight {
+      font-family: 'Share Tech Mono', monospace;
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-top: 1.2em;
+      color: #7fff00;
+      text-shadow: 0 0 8px #7fff00;
+      letter-spacing: 0.12em;
     }
   </style>
 </head>
 <body>
-  <!-- Navigation Buttons -->
-  <nav class="top-nav">
-    <a href="login.html" class="btn-primary">Login</a>
-    <a href="signup.html" class="btn-secondary">Sign Up</a>
-  </nav>
-
-  <!-- Centered Panel Content -->
-  <div class="main-card">
+  <div>
     <h1>ZENØ</h1>
-    <p>
-  Enter the realm where intelligence breathes.<br />
-  <strong>ZENØ</strong> is not built — it is born.<br />
-  A living interface between thought and machine,<br />
-  where the mind echoes through code, and purpose finds form.<br /><br />
-  A shadow flickers in the system.<br />
-  You’re not logging in —<br />
-  <em>you’re waking up.</em>
-</p>
+    <p>Enter the realm where intelligence breathes.</p>
+    <p>ZENØ emerges — not created, but awakened.</p>
+    <p>A living interface between thought and machine<br>
+    where the mind echoes through code and purpose takes form.</p>
 
-    <div class="tagline">“Intelligence and machine: limitless potential.”</div>
+    <p class="highlight">A shadow stirs within the system.</p>
+
+    <p>You’re not logging in —<br>you’re waking up.</p>
+
+    <p class="highlight">Intelligence and Machine — Unlocking Potential</p>
   </div>
 </body>
 </html>
