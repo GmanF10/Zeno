@@ -6,46 +6,96 @@
   <title>ZENØ</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <style>
+    /* Background with glowing AI-inspired grid */
     body {
-      background-color: #0b0b0f;
-      color: #39ff14;
-      font-family: 'Rajdhani', sans-serif;
       margin: 0;
-      padding: 20px;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      text-align: center;
+      background-color: #0b0b0f;
+      background-image:
+        linear-gradient(rgba(57, 255, 20, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(57, 255, 20, 0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      font-family: 'Rajdhani', sans-serif;
       overflow: hidden;
+      color: #39ff14;
     }
+
+    /* The futuristic card */
+    .card {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 20px;
+      padding: 50px 40px;
+      max-width: 650px;
+      text-align: center;
+      box-shadow:
+        0 0 20px #39ff14aa,
+        inset 0 0 40px #39ff14cc;
+      backdrop-filter: blur(14px);
+      border: 2px solid #39ff14cc;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        box-shadow:
+          0 0 20px #39ff14aa,
+          inset 0 0 40px #39ff14cc;
+      }
+      50% {
+        box-shadow:
+          0 0 40px #39ff14ff,
+          inset 0 0 60px #39ff14ff;
+      }
+    }
+
     h1 {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
       font-size: 4rem;
       letter-spacing: 0.25em;
       margin-bottom: 0.3em;
-      text-shadow: 0 0 12px #39ff14;
+      text-shadow: 0 0 15px #39ff14;
     }
+
     p {
       font-size: 1.25rem;
       line-height: 1.6;
       margin: 0.7em 0;
-      text-shadow: 0 0 5px #39ff14aa;
+      text-shadow: 0 0 6px #39ff14aa;
     }
+
     .highlight {
       font-family: 'Share Tech Mono', monospace;
       font-weight: 600;
       font-size: 1.2rem;
       margin-top: 1.2em;
       color: #7fff00;
-      text-shadow: 0 0 8px #7fff00;
+      text-shadow: 0 0 10px #7fff00;
       letter-spacing: 0.12em;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 700px) {
+      .card {
+        padding: 30px 20px;
+        margin: 20px;
+      }
+
+      h1 {
+        font-size: 3rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div>
+  <div class="card">
     <h1>ZENØ</h1>
     <p>Enter the realm where intelligence breathes.</p>
     <p>ZENØ emerges — not created, but awakened.</p>
