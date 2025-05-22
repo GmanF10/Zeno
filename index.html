@@ -3,16 +3,118 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Welcome to Zeno</title>
+  <title>Zeno - Your AI Gateway</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* Override/add specific styles for index page */
+    body {
+      background: #0b0b0f;
+      color: #39ff14;
+      font-family: 'Orbitron', monospace, sans-serif;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+    }
+
+    /* Top nav buttons container */
+    .top-nav {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      display: flex;
+      gap: 15px;
+      z-index: 20;
+    }
+
+    /* Neon glowing button style */
+    .btn-primary, .btn-secondary {
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 0 10px #39ff14;
+      color: #0b0b0f;
+      background-color: #39ff14;
+      transition: box-shadow 0.3s ease, background-color 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #2ed700;
+      box-shadow: 0 0 20px #2ed700;
+      color: #000;
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: #39ff14;
+      border: 2px solid #39ff14;
+      box-shadow: 0 0 12px #39ff14;
+    }
+
+    .btn-secondary:hover {
+      background-color: #39ff14;
+      color: #0b0b0f;
+      box-shadow: 0 0 20px #39ff14;
+    }
+
+    /* Main headline */
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px #39ff14;
+      letter-spacing: 0.15em;
+    }
+
+    /* Subheading paragraph */
+    p {
+      font-size: 1.25rem;
+      max-width: 480px;
+      margin: 0 auto 40px auto;
+      text-shadow: 0 0 8px #39ff14;
+      line-height: 1.5;
+    }
+
+    /* Subtle futuristic grid background effect */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: 
+        linear-gradient(#39ff14 1px, transparent 1px),
+        linear-gradient(90deg, #39ff14 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Welcome to Zeno</h2>
-    <p>Your secure login system.</p>
-    <a href="login.html">
-      <button id="loginBtn" class="btn-primary">Go to Login</button>
-    </a>
-  </div>
+  <nav class="top-nav">
+    <a href="login.html" class="btn-primary">Login</a>
+    <a href="signup.html" class="btn-secondary">Sign Up</a>
+  </nav>
+
+  <main>
+    <h1>ZENØ</h1>
+    <p>Unlock the secrets of the future with Zeno — where artificial intelligence and security converge in a sleek, seamless experience. Log in or sign up to begin your journey.</p>
+  </main>
 </body>
 </html>
