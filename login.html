@@ -13,21 +13,23 @@
   <div class="container">
     <h2>Login to Zeno</h2>
 
-    <input type="email" id="email" placeholder="Email" autocomplete="email" />
-    <input type="password" id="password" placeholder="Password" autocomplete="current-password" />
+    <input type="email" id="email" placeholder="Email" autocomplete="off" />
 
-    <label class="remember-me">
-      <input type="checkbox" id="rememberMe" /> Remember Me
+    <input type="password" id="password" placeholder="Password" autocomplete="off" />
+
+    <label class="remember-me" for="rememberMe">
+      <input type="checkbox" id="rememberMe" />
+      Remember Me
     </label>
 
     <button id="loginBtn">Login</button>
 
-    <p id="status"></p>
-
     <div class="links">
-      <a href="#" id="forgotPasswordLink">Forgot Password?</a> |
-      <a href="#" id="forgotEmailLink">Forgot Email?</a>
+      <a href="#" id="forgotPassword">Forgot Password?</a>
+      <a href="#" id="forgotEmail">Forgot Email?</a>
     </div>
+
+    <p id="status"></p>
   </div>
 
   <script type="module" src="js/auth.js"></script>
