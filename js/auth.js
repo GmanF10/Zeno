@@ -16,23 +16,39 @@ const auth = getAuth(app);
 
 const loginBtn = document.getElementById("loginBtn");
 const statusEl = document.getElementById("status");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
 
 loginBtn.addEventListener("click", async () => {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
 
   if (!email || !password) {
     statusEl.textContent = "⚠️ Please enter email and password.";
     return;
   }
 
+  loginBtn.disabled = true;
+  statusEl.textContent = "⏳ Logging in...";
+
   try {
     await signInWithEmailAndPassword(auth, email, password);
     statusEl.textContent = `✅ Logged in as ${email}`;
-    // Redirect or load dashboard here if you want
+    // Optionally redirect here
+    // window.location.href = "dashboard.html";
   } catch (error) {
     statusEl.textContent = `❌ Login failed: ${error.message}`;
+  } finally {
+    loginBtn.disabled = false;
   }
+});
+
+// Clear status when user types in email or password inputs
+emailInput.addEventListener("input", () => {
+  statusEl.textContent = "";
+});
+passwordInput.addEventListener("input", () => {
+  statusEl.textContent = "";
 });
 
 onAuthStateChanged(auth, user => {

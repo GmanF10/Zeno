@@ -67,6 +67,16 @@ button:hover {
     0 0 80px #ff00e5;
 }
 
+/* Disabled login button style */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  color: #800060;
+  border-color: #800060;
+  background-color: transparent;
+}
+
 /* Input fields */
 input {
   background: rgba(255,255,255,0.1);
@@ -86,6 +96,8 @@ input:focus {
   border-color: #ff00e5;
   box-shadow:
     0 0 10px #ff00e5;
+  outline: 2px solid #ff00e5;
+  outline-offset: 2px;
 }
 
 /* Container for form */
@@ -98,4 +110,14 @@ input:focus {
     0 0 30px #ff00e5aa;
   text-align: center;
   width: 360px;
+}
+
+/* Status message styling */
+#status {
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  min-height: 24px; /* Prevent layout shift when text changes */
+  color: #ff00e5;
+  text-shadow: 0 0 8px #ff00e5;
 }
