@@ -2,9 +2,10 @@ const canvas = document.getElementById('neuralCanvas');
 const ctx = canvas.getContext('2d');
 
 let width, height;
-let nodes = [];
+const nodes = [];
 const NODE_COUNT = 100;
 const MAX_DISTANCE = 150;
+const dpr = window.devicePixelRatio || 1;
 
 const mouse = {
   x: 0,
@@ -12,22 +13,26 @@ const mouse = {
   active: false,
 };
 
+// Canvas Resize Function
 function resize() {
   width = window.innerWidth;
   height = window.innerHeight;
-  const dpr = window.devicePixelRatio || 1;
 
   canvas.width = width * dpr;
   canvas.height = height * dpr;
-  canvas.style.width = width + 'px';
-  canvas.style.height = height + 'px';
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
 
-  ctx.setTransform(1, 0, 0, 1, 0, 0); // reset before scaling
-  ctx.scale(dpr, dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 
+// Node Class Definition
 class Node {
   constructor() {
+    this.reset();
+  }
+
+  reset() {
     this.x = Math.random() * width;
     this.y = Math.random() * height;
     this.vx = (Math.random() - 0.5) * 0.5;
@@ -43,6 +48,7 @@ class Node {
 
     repelFromMouse(this, mouse);
 
+    // Bounce off edges
     if (this.x <= 0 || this.x >= width) this.vx *= -1;
     if (this.y <= 0 || this.y >= height) this.vy *= -1;
   }
@@ -55,14 +61,15 @@ class Node {
   }
 }
 
+// Mouse Interaction
 function repelFromMouse(node, mouse) {
   if (!mouse.active) return;
 
   const dx = node.x - mouse.x;
   const dy = node.y - mouse.y;
-  const dist = Math.sqrt(dx * dx + dy * dy);
-
+  const dist = Math.hypot(dx, dy);
   const repelRadius = 150;
+
   if (dist < repelRadius) {
     const force = (repelRadius - dist) / repelRadius;
     const angle = Math.atan2(dy, dx);
@@ -70,28 +77,34 @@ function repelFromMouse(node, mouse) {
     node.vy += Math.sin(angle) * force * 0.3;
   }
 
+  // Smooth deceleration
   node.vx *= 0.95;
   node.vy *= 0.95;
 }
 
+// Connect Nodes with lines
 function connectNodes() {
-  for (let i = 0; i < NODE_COUNT; i++) {
+  for (let i = 0; i < NODE_COUNT - 1; i++) {
+    const nodeA = nodes[i];
     for (let j = i + 1; j < NODE_COUNT; j++) {
-      const dx = nodes[i].x - nodes[j].x;
-      const dy = nodes[i].y - nodes[j].y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+      const nodeB = nodes[j];
+      const dx = nodeA.x - nodeB.x;
+      const dy = nodeA.y - nodeB.y;
+      const dist = Math.hypot(dx, dy);
+
       if (dist < MAX_DISTANCE) {
         ctx.strokeStyle = `rgba(57, 255, 20, ${1 - dist / MAX_DISTANCE})`;
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.moveTo(nodes[i].x, nodes[i].y);
-        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.moveTo(nodeA.x, nodeA.y);
+        ctx.lineTo(nodeB.x, nodeB.y);
         ctx.stroke();
       }
     }
   }
 }
 
+// Animation Loop
 function animate() {
   ctx.clearRect(0, 0, width, height);
   nodes.forEach((node) => {
@@ -102,21 +115,24 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
+// Initialization Function
 function init() {
   resize();
-  nodes = [];
+  nodes.length = 0; // Clear existing nodes
   for (let i = 0; i < NODE_COUNT; i++) {
     nodes.push(new Node());
   }
   animate();
 }
 
+// Debounce Resize Event for Performance
 let resizeTimeout;
 window.addEventListener('resize', () => {
   clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(resize, 200);
+  resizeTimeout = setTimeout(init, 200);
 });
 
+// Mouse Event Listeners
 canvas.addEventListener('mousemove', (e) => {
   const rect = canvas.getBoundingClientRect();
   mouse.x = e.clientX - rect.left;
@@ -128,4 +144,5 @@ canvas.addEventListener('mouseleave', () => {
   mouse.active = false;
 });
 
+// Start Animation
 init();
