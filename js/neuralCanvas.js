@@ -13,8 +13,12 @@ let nodes = [];
 const NODE_COUNT = 100;
 const MAX_DISTANCE = 150;
 
+// Global speed multiplier for node movement
+const SPEED_MULTIPLIER = 0.2;
+
 const mouse = { x: 0, y: 0, active: false };
 
+// Resize canvas to fill window
 function resize() {
   width = window.innerWidth;
   height = window.innerHeight;
@@ -23,35 +27,41 @@ function resize() {
   canvas.style.display = 'block';
 }
 
+// Function to generate random velocity for nodes
 function getRandomVelocity() {
   let speed;
   do {
-    speed = (Math.random() - 0.5) * 0.5;
-  } while (speed === 0);
+    speed = (Math.random() - 0.5) * SPEED_MULTIPLIER;
+  } while (Math.abs(speed) < SPEED_MULTIPLIER / 6); // ensure it's not too slow
   return speed;
 }
 
+// Node class to represent each animated point
 class Node {
   constructor() {
     this.x = Math.random() * width;
     this.y = Math.random() * height;
     this.vx = getRandomVelocity();
     this.vy = getRandomVelocity();
-    this.radius = 2 + Math.random() * 2;
+    this.radius = 2 + Math.random() * 2; // Random radius between 2 and 4
     const colors = ['#39ff14', '#00ffe7', '#00ffa0'];
     this.color = colors[Math.floor(Math.random() * colors.length)];
   }
 
+  // Move node based on velocity
   move() {
     this.x += this.vx;
     this.y += this.vy;
 
+    // Repel nodes from the mouse pointer
     repelFromMouse(this);
 
+    // Check for boundary collisions and reverse velocity if needed
     if (this.x <= 0 || this.x >= width) this.vx *= -1;
     if (this.y <= 0 || this.y >= height) this.vy *= -1;
   }
 
+  // Draw the node on the canvas
   draw() {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -60,6 +70,7 @@ class Node {
   }
 }
 
+// Apply repulsion force when mouse hovers over the nodes
 function repelFromMouse(node) {
   if (!mouse.active) return;
 
@@ -75,10 +86,12 @@ function repelFromMouse(node) {
     node.vy += Math.sin(angle) * force * 0.3;
   }
 
+  // Apply damping to velocities to slow them down over time
   node.vx *= 0.95;
   node.vy *= 0.95;
 }
 
+// Connect nodes with lines if they are close enough
 function connectNodes() {
   for (let i = 0; i < NODE_COUNT; i++) {
     for (let j = i + 1; j < NODE_COUNT; j++) {
@@ -98,6 +111,7 @@ function connectNodes() {
   }
 }
 
+// Animation loop: updates node positions and redraws canvas
 function animate() {
   console.log("⏳ animation frame"); // Debug line to verify animation loop
 
@@ -110,6 +124,7 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
+// Initialize the canvas and create nodes
 function init() {
   resize();
   nodes = [];
@@ -119,9 +134,10 @@ function init() {
   animate();
 }
 
+// Event listeners for resizing canvas and mouse movements
 window.addEventListener('resize', () => {
   clearTimeout(window.resizeTimeout);
-  window.resizeTimeout = setTimeout(init, 200);
+  window.resizeTimeout = setTimeout(init, 200); // debounce resizing
 });
 
 canvas.addEventListener('mousemove', e => {
@@ -135,4 +151,5 @@ canvas.addEventListener('mouseleave', () => {
   mouse.active = false;
 });
 
+// Start the animation on page load
 window.addEventListener('load', init);
