@@ -8,6 +8,7 @@
   --highlight: #3ed410c5;
 }
 
+/* General styles for the body */
 body, html {
   margin: 0;
   padding: 0;
@@ -29,6 +30,75 @@ body, html {
   height: 100vh;  /* Ensure the body takes full height */
 }
 
+/* Header Styling (Glassmorphism & Cyberpunk Theme) */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Full height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(10, 10, 10, 0.5); /* Semi-transparent background */
+  backdrop-filter: blur(20px); /* Glassmorphism effect */
+  z-index: 100;
+}
+
+.header-content {
+  text-align: center;
+  padding: 2rem;
+  max-width: 900px;
+}
+
+/* Styling the logo */
+.logo {
+  font-size: 5rem;
+  color: #39ff14; /* Neon green */
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 30px #39ff14;
+}
+
+/* Tagline styling */
+.tagline {
+  font-size: 1.5rem;
+  color: #fff;
+  margin: 20px 0;
+  text-shadow: 0 0 10px #00ffea;
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.link-button {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 2px solid #65ec4d;
+  color: var(--text-glow);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 0 8px #65ec4d;
+  transition: all 0.3s ease;
+}
+
+.link-button:hover {
+  background-color: #65ec4d;
+  color: #000;
+  box-shadow: 0 0 16px #65ec4d, 0 0 24px #65ec4d;
+}
+
+/* Canvas background styling */
 #neuralCanvas {
   position: fixed;
   top: 0;
@@ -38,6 +108,7 @@ body, html {
   z-index: -1;
 }
 
+/* Main Card */
 .card {
   background: rgba(48, 45, 45, 0.15);
   border-radius: 20px;
@@ -49,6 +120,7 @@ body, html {
   backdrop-filter: blur(14px);
   border: 2px solid #00fc00d0;
   animation: glowPulse 3s ease-in-out infinite;
+  margin: 80px auto;
 }
 
 @keyframes glowPulse {
@@ -180,73 +252,7 @@ body, html {
   box-shadow: 0 0 16px var(--neon-green), 0 0 24px var(--neon-green);
 }
 
-.auth-card {
-  max-width: 400px;
-  margin: 80px auto;
-  padding: 25px;
-  background: rgba(10, 10, 10, 0.8);
-  backdrop-filter: blur(8px);
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(57, 255, 20, 0.6);
-  animation: flickerGlow 2.5s infinite alternate;
-  text-align: center;
-}
-
-.input-group {
-  position: relative;
-  margin-bottom: 15px;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 12px 15px;
-  border-radius: 6px;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-size: 1rem;
-  outline: none;
-}
-
-.input-group input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.icon {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.6;
-}
-
-.user-icon::before { content: '👤'; }
-.lock-icon::before { content: '🔒'; }
-
-#status, #regStatus {
-  margin-top: 15px;
-  font-size: 0.9rem;
-}
-
-.form-footer {
-  margin-top: 15px;
-  font-size: 0.95rem;
-}
-
-.form-footer a {
-  color: #39ff14;
-  text-decoration: none;
-}
-
-.form-footer a:hover {
-  text-decoration: underline;
-}
-
-@keyframes flickerGlow {
-  from { box-shadow: 0 0 15px rgba(57, 255, 20, 0.4); }
-  to { box-shadow: 0 0 30px rgba(101, 236, 77, 0.9); }
-}
-
+/* Adjusting for smaller screens */
 @media (max-width: 700px) {
   .card {
     padding: 20px;
