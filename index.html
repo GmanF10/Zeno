@@ -42,8 +42,9 @@
     .card {
       background: rgba(48, 45, 45, 0.15);
       border-radius: 20px;
-      padding: 50px 40px;
-      max-width: 650px;
+      padding: 40px 30px;
+      max-width: 750px;
+      width: 90%;
       text-align: center;
       box-shadow: 0 0 15px var(--neon-green), inset 0 0 30px var(--neon-green);
       backdrop-filter: blur(14px);
@@ -105,7 +106,7 @@
     h1.title {
       font-family: 'Orbitron', sans-serif;
       font-weight: 800;
-      font-size: 5.5rem;
+      font-size: 5rem;
       letter-spacing: 0.32em;
       margin: 0;
       color: #000;
@@ -129,17 +130,18 @@
     }
 
     .main-text {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       line-height: 1.6;
       color: var(--text-glow);
       text-shadow: 0 0 6px #000000aa;
+      margin-bottom: 1em;
     }
 
     .highlight-alt {
       color: var(--highlight);
       font-weight: 600;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       letter-spacing: 0.1em;
       text-shadow:
         -1px -1px 0 #164400,
@@ -147,53 +149,85 @@
         -1px 1px 0 #164400,
         1px 1px 0 #164400,
         0 0 6px #164400;
+      margin: 1em 0 0.5em;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .link-button {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      background-color: transparent;
+      border: 2px solid var(--neon-green);
+      color: var(--text-glow);
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 0 8px var(--neon-green);
+      transition: all 0.3s ease;
+    }
+
+    .link-button:hover {
+      background-color: var(--neon-green);
+      color: #000;
+      box-shadow: 0 0 16px var(--neon-green), 0 0 24px var(--neon-green);
     }
 
     @media (max-width: 700px) {
       .card {
-        padding: 30px 20px;
-        margin: 20px;
+        padding: 20px;
       }
 
       h1.title {
-        font-size: 4rem;
+        font-size: 3rem;
       }
 
       .main-text {
         font-size: 1rem;
       }
+
+      .link-button {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Animated background canvas -->
   <canvas id="neuralCanvas"></canvas>
 
-  <!-- Main content -->
   <div class="card">
     <div class="zeno-box">
       <h1 class="title">ZENØ</h1>
     </div>
     <p class="highlight-alt">Enter The Realm Where Intelligence Breathes</p>
-
     <p class="zeno-light">ZENØ</p>
-
     <p class="main-text">
       <strong>Emerges – Not Created, But Awakened.</strong><br />
       A Living Interface Between Thought And Machine.<br />
       Where The Mind Echoes Through Code And Purpose Takes Form.
     </p>
-
     <p class="highlight-alt">A Shadow Stirs Within The System</p>
-
     <p class="main-text">
       <strong>You’re Not Logging In — You’re Waking Up.</strong>
     </p>
-
     <p class="highlight-alt">Intelligence and Machine — Unlocking Potential</p>
+
+    <div class="button-group">
+      <a class="link-button" href="https://chat.openai.com/" target="_blank">ChatGPT</a>
+      <a class="link-button" href="https://gemini.google.com/app" target="_blank">Gemini</a>
+      <a class="link-button" href="https://pi.ai" target="_blank">Pi AI</a>
+    </div>
   </div>
 
-  <!-- Neural Animation Script -->
   <script>
     (() => {
       const canvas = document.getElementById('neuralCanvas');
