@@ -1,43 +1,37 @@
+// ZENØ neuralCanvas.js – with enhancements
+
 const canvas = document.getElementById('neuralCanvas');
 const ctx = canvas.getContext('2d');
 
+if (!ctx) {
+  console.error('Canvas context not supported');
+}
+
 let width, height;
-const nodes = [];
+let nodes = [];
 const NODE_COUNT = 100;
 const MAX_DISTANCE = 150;
-const dpr = window.devicePixelRatio || 1;
 
-const mouse = {
-  x: 0,
-  y: 0,
-  active: false,
-};
+const mouse = { x: 0, y: 0, active: false };
 
-// Canvas Resize Function
+// Resize Canvas Function
 function resize() {
   width = window.innerWidth;
   height = window.innerHeight;
 
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
-  canvas.style.width = `${width}px`;
-  canvas.style.height = `${height}px`;
-
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  canvas.width = width;
+  canvas.height = height;
+  canvas.style.display = 'block'; // prevent scrollbars
 }
 
 // Node Class Definition
 class Node {
   constructor() {
-    this.reset();
-  }
-
-  reset() {
     this.x = Math.random() * width;
     this.y = Math.random() * height;
     this.vx = (Math.random() - 0.5) * 0.5;
     this.vy = (Math.random() - 0.5) * 0.5;
-    this.radius = 2 + Math.random() * 3;
+    this.radius = 2 + Math.random() * 2;
     const colors = ['#39ff14', '#00ffe7', '#00ffa0'];
     this.color = colors[Math.floor(Math.random() * colors.length)];
   }
@@ -46,9 +40,8 @@ class Node {
     this.x += this.vx;
     this.y += this.vy;
 
-    repelFromMouse(this, mouse);
+    repelFromMouse(this);
 
-    // Bounce off edges
     if (this.x <= 0 || this.x >= width) this.vx *= -1;
     if (this.y <= 0 || this.y >= height) this.vy *= -1;
   }
@@ -61,15 +54,15 @@ class Node {
   }
 }
 
-// Mouse Interaction
-function repelFromMouse(node, mouse) {
+// Repel effect from mouse
+function repelFromMouse(node) {
   if (!mouse.active) return;
 
   const dx = node.x - mouse.x;
   const dy = node.y - mouse.y;
   const dist = Math.hypot(dx, dy);
-  const repelRadius = 150;
 
+  const repelRadius = 150;
   if (dist < repelRadius) {
     const force = (repelRadius - dist) / repelRadius;
     const angle = Math.atan2(dy, dx);
@@ -77,27 +70,24 @@ function repelFromMouse(node, mouse) {
     node.vy += Math.sin(angle) * force * 0.3;
   }
 
-  // Smooth deceleration
   node.vx *= 0.95;
   node.vy *= 0.95;
 }
 
-// Connect Nodes with lines
+// Connect Nodes Function
 function connectNodes() {
-  for (let i = 0; i < NODE_COUNT - 1; i++) {
-    const nodeA = nodes[i];
+  for (let i = 0; i < NODE_COUNT; i++) {
     for (let j = i + 1; j < NODE_COUNT; j++) {
-      const nodeB = nodes[j];
-      const dx = nodeA.x - nodeB.x;
-      const dy = nodeA.y - nodeB.y;
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
       const dist = Math.hypot(dx, dy);
 
       if (dist < MAX_DISTANCE) {
         ctx.strokeStyle = `rgba(57, 255, 20, ${1 - dist / MAX_DISTANCE})`;
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.moveTo(nodeA.x, nodeA.y);
-        ctx.lineTo(nodeB.x, nodeB.y);
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
         ctx.stroke();
       }
     }
@@ -107,7 +97,7 @@ function connectNodes() {
 // Animation Loop
 function animate() {
   ctx.clearRect(0, 0, width, height);
-  nodes.forEach((node) => {
+  nodes.forEach(node => {
     node.move();
     node.draw();
   });
@@ -115,25 +105,23 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// Initialization Function
+// Initialize Nodes
 function init() {
   resize();
-  nodes.length = 0; // Clear existing nodes
+  nodes = [];
   for (let i = 0; i < NODE_COUNT; i++) {
     nodes.push(new Node());
   }
   animate();
 }
 
-// Debounce Resize Event for Performance
-let resizeTimeout;
+// Event Listeners
 window.addEventListener('resize', () => {
-  clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(init, 200);
+  clearTimeout(window.resizeTimeout);
+  window.resizeTimeout = setTimeout(init, 200);
 });
 
-// Mouse Event Listeners
-canvas.addEventListener('mousemove', (e) => {
+canvas.addEventListener('mousemove', e => {
   const rect = canvas.getBoundingClientRect();
   mouse.x = e.clientX - rect.left;
   mouse.y = e.clientY - rect.top;
@@ -144,5 +132,5 @@ canvas.addEventListener('mouseleave', () => {
   mouse.active = false;
 });
 
-// Start Animation
-init();
+// Start the animation on page load
+window.addEventListener('load', init);

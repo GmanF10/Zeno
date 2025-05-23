@@ -9,18 +9,26 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-document.getElementById('loginForm').addEventListener('submit', (e) => {
+const form = document.getElementById('loginForm');
+const loginBtn = document.getElementById('loginBtn');
+
+form.addEventListener('submit', (e) => {
   e.preventDefault();
-  const email = document.getElementById('email').value;
+
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
   const statusMsg = document.getElementById('status');
 
+  loginBtn.disabled = true;
+  statusMsg.textContent = "⏳ Logging in...";
+
   signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(() => {
       statusMsg.textContent = "✅ Login successful!";
       window.location.href = "dashboard.html";
     })
     .catch((error) => {
       statusMsg.textContent = `❌ Error: ${error.message}`;
+      loginBtn.disabled = false;
     });
 });

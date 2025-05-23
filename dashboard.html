@@ -3,23 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zeno Dashboard</title>
+  <title>ZENO Dashboard</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <canvas id="neuralCanvas"></canvas>
 
-  <div class="background"></div>
-
-  <div class="container">
-    <h2>Welcome to Your Dashboard</h2>
-    <p>You are successfully logged in.</p>
+  <div class="auth-card">
+    <h2 class="title">Welcome to ZENØ</h2>
+    <p class="main-text">You are successfully logged in.</p>
     <button class="button" id="logoutBtn">Logout</button>
   </div>
 
+  <script src="js/neuralCanvas.js"></script>
   <script type="module">
-    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 
     const auth = getAuth();
+
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        window.location.href = "login.html";
+      }
+    });
 
     document.getElementById("logoutBtn").addEventListener("click", async () => {
       try {
