@@ -1,8 +1,8 @@
 export const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCHkSQPSm6la7b9E8O_Tc3YMI-FWWQzt4g",
+  authDomain: "zeno-14a48.firebaseapp.com",
+  projectId: "zeno-14a48",
+  storageBucket: "zeno-14a48.appspot.com",
+  messagingSenderId: "416659613054",
+  appId: "1:416659613054:web:default-app-id-placeholder" // Replace with your actual appId if needed
 };

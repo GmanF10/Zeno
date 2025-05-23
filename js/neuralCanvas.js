@@ -10,17 +10,28 @@ const NODE_COUNT = 100;
 const MAX_DISTANCE = 150;
 
 // Global speed multiplier for node movement
-const SPEED_MULTIPLIER = 0.2;  // Slower speed for smoother movement
+const SPEED_MULTIPLIER = 1;  // Slower speed for smoother movement
 
-// Resize canvas to fill window
+// Initialize a variable to store the resize timeout
+let resizeTimeout;
+
+// Resize canvas to fill window (debounced)
 function resize() {
-  width = window.innerWidth;
-  height = window.innerHeight;
-  canvas.width = width;  // Set canvas width to window width
-  canvas.height = height;  // Set canvas height to window height
+  // Clear the previous resize timeout to prevent unnecessary calls
+  clearTimeout(resizeTimeout);
 
-  // Debugging log to ensure resize is happening
-  console.log(`Canvas resized: width=${width}, height=${height}`);
+  // Set a new timeout to execute resize logic after a short delay
+  resizeTimeout = setTimeout(() => {
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    // Only adjust canvas size if dimensions change
+    if (width !== canvas.width || height !== canvas.height) {
+      canvas.width = width;
+      canvas.height = height;
+      console.log(`Canvas resized: width=${width}, height=${height}`);
+    }
+  }, 200);  // Adjust the timeout duration (200ms) as necessary
 }
 
 // Function to generate random velocity for nodes
@@ -40,7 +51,6 @@ class Node {
     this.vx = getRandomVelocity();  // Horizontal velocity
     this.vy = getRandomVelocity();  // Vertical velocity
     this.radius = 2 + Math.random() * 2;  // Random radius between 2 and 4
-    this.baseRadius = this.radius; // Store the initial radius for pulsing
     this.pulseDirection = 1;
     this.colorHue = 140 + Math.random() * 60; // green to cyan hues
   }
