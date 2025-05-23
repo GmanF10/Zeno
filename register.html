@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ZENØ - Login</title>
+  <title>ZENØ - Register</title>
 
   <!-- Google Fonts -->
   <link
@@ -22,50 +22,50 @@
   <canvas id="neuralCanvas"></canvas>
 
   <div class="auth-card">
-    <h2 class="title">Login to ZENØ</h2>
+    <h2 class="title">Create Your ZENØ Account</h2>
     
-    <form id="loginForm" novalidate>
+    <form id="registerForm" novalidate>
       <div class="input-group">
-        <label for="email" class="visually-hidden">Email Address</label>
+        <label for="regEmail" class="visually-hidden">Email Address</label>
         <input
           type="email"
-          id="email"
+          id="regEmail"
           name="email"
           placeholder="Email"
           required
-          autocomplete="username"
+          autocomplete="email"
           aria-required="true"
         />
         <span class="icon user-icon"></span>
       </div>
 
       <div class="input-group">
-        <label for="password" class="visually-hidden">Password</label>
+        <label for="regPassword" class="visually-hidden">Password</label>
         <input
           type="password"
-          id="password"
+          id="regPassword"
           name="password"
           placeholder="Password"
           required
-          autocomplete="current-password"
+          autocomplete="new-password"
           aria-required="true"
         />
         <span class="icon lock-icon"></span>
       </div>
 
-      <button id="loginBtn" type="submit" class="button">Login</button>
-      <p id="status" aria-live="polite"></p>
+      <button id="registerBtn" type="submit" class="button">Create Account</button>
+      <p id="regStatus" aria-live="polite"></p>
     </form>
 
     <p class="form-footer">
-      Don't have an account?
-      <a href="register.html">Create one here</a>
+      Already have an account?
+      <a href="login.html">Log In</a>
     </p>
   </div>
 
   <!-- JavaScript -->
   <script src="js/neuralCanvas.js"></script>
-  <script src="js/auth.js" type="module"></script>
+  <script src="js/register.js" type="module"></script>
 
 </body>
 </html>
