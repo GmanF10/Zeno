@@ -4,33 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ZENØ</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --neon-green: #65ec4df8;
+      --ai-glow: #09d65ec7;
+      --bg-dark: #0c0c0f;
+      --text-glow: #38d868da;
+      --highlight: #3ed410c5;
+    }
+
     body {
       margin: 0;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #0c0c0f;
+      background-color: var(--bg-dark);
       background-image:
         linear-gradient(rgba(57, 255, 20, 0.07) 1px, transparent 1px),
         linear-gradient(90deg, rgba(57, 255, 20, 0.07) 1px, transparent 1px);
       background-size: 60px 60px;
       font-family: 'Rajdhani', sans-serif;
       overflow: hidden;
-      color: #3da12b;
+      color: var(--text-glow);
     }
 
     .card {
-      background: rgba(48, 45, 45, 0.158);
+      background: rgba(48, 45, 45, 0.15);
       border-radius: 20px;
       padding: 50px 40px;
       max-width: 650px;
       text-align: center;
-      box-shadow:
-        0 0 15px #65ec4df8,
-        inset 0 0 30px #65ec4df8;
+      box-shadow: 0 0 15px var(--neon-green), inset 0 0 30px var(--neon-green);
       backdrop-filter: blur(14px);
       border: 2px solid #00fc00d0;
       animation: glowPulse 3s ease-in-out infinite;
@@ -38,14 +44,10 @@
 
     @keyframes glowPulse {
       0%, 100% {
-        box-shadow:
-          0 0 15px #65ec4df8,
-          inset 0 0 30px #65ec4df8;
+        box-shadow: 0 0 15px var(--neon-green), inset 0 0 30px var(--neon-green);
       }
       50% {
-        box-shadow:
-          0 0 30px #65ec4df8,
-          inset 0 0 45px #65ec4df8;
+        box-shadow: 0 0 30px var(--neon-green), inset 0 0 45px var(--neon-green);
       }
     }
 
@@ -54,46 +56,48 @@
       font-weight: 800;
       font-size: 5.5rem;
       letter-spacing: 0.32em;
-      margin-bottom: 1em;
-      color: #000000;
+      margin-bottom: 0.5em;
+      color: #000;
       text-shadow:
-        -2px -2px 0 #09d65ec7,
-        2px -2px 0 #09d65ec7,
-        -2px 2px 0 #09d65ec7,
-        2px 2px 0 #09d65ec7,
+        -2px -2px 0 var(--ai-glow),
+        2px -2px 0 var(--ai-glow),
+        -2px 2px 0 var(--ai-glow),
+        2px 2px 0 var(--ai-glow),
         0 0 12px #ffe868;
     }
 
     .zeno-light {
       font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      color: #000000;
-      letter-spacing: 0.25em;
-      margin: 1em 0;
-      text-shadow: 0 0 5px #00ffea;
+      font-weight: 900;
+      color: #000;
+      letter-spacing: 0.15em;
+      margin: 1em 0 0.5em;
+      text-shadow: 0 0 20px #00ffea;
     }
 
-    p.main-text {
+    p {
+      margin: 1em 0;
+    }
+
+    .main-text {
       font-size: 1.3rem;
       line-height: 1.6;
-      margin: 0.8em 0;
-      color: #38d868da;
+      color: var(--text-glow);
       text-shadow: 0 0 6px #000000aa;
     }
 
     .highlight-alt {
-      color: #3ed410c5;
+      color: var(--highlight);
+      font-weight: 600;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
       text-shadow:
         -1px -1px 0 #164400,
         1px -1px 0 #164400,
         -1px 1px 0 #164400,
         1px 1px 0 #164400,
         0 0 6px #164400;
-      font-weight: 600;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 1.2rem;
-      letter-spacing: 0.1em;
-      margin: 1.1em 0;
     }
 
     @media (max-width: 700px) {
@@ -106,7 +110,7 @@
         font-size: 4rem;
       }
 
-      p.main-text {
+      .main-text {
         font-size: 1rem;
       }
     }
@@ -118,16 +122,17 @@
     <p class="highlight-alt">Enter The Realm Where Intelligence Breathes</p>
 
     <p class="zeno-light">ZENØ</p>
+
     <p class="main-text">
-      <strong>Emerges – Not Created, But Awakened</strong><br>
-      A Living Interface Between Thought And Machine<br>
-      Where The Mind Echoes Through Code And Purpose Takes Form
+      <strong>Emerges – Not Created, But Awakened.</strong><br />
+      A Living Interface Between Thought And Machine.<br />
+      Where The Mind Echoes Through Code And Purpose Takes Form.
     </p>
-    
+
     <p class="highlight-alt">A Shadow Stirs Within The System</p>
 
     <p class="main-text">
-      <strong>You’re Not Logging In <br>You’re Waking Up</strong><br>
+      <strong>You’re Not Logging In — You’re Waking Up.</strong>
     </p>
 
     <p class="highlight-alt">Intelligence and Machine — Unlocking Potential</p>
