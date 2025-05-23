@@ -1,4 +1,4 @@
-// ZENØ neuralCanvas.js – with enhancements
+// ZENØ neuralCanvas.js – fixed node bounce and movement
 
 const canvas = document.getElementById('neuralCanvas');
 const ctx = canvas.getContext('2d');
@@ -14,23 +14,28 @@ const MAX_DISTANCE = 150;
 
 const mouse = { x: 0, y: 0, active: false };
 
-// Resize Canvas Function
 function resize() {
   width = window.innerWidth;
   height = window.innerHeight;
-
   canvas.width = width;
   canvas.height = height;
-  canvas.style.display = 'block'; // prevent scrollbars
+  canvas.style.display = 'block';
 }
 
-// Node Class Definition
+function getRandomVelocity() {
+  let speed;
+  do {
+    speed = (Math.random() - 0.5) * 0.5;
+  } while (speed === 0);
+  return speed;
+}
+
 class Node {
   constructor() {
     this.x = Math.random() * width;
     this.y = Math.random() * height;
-    this.vx = (Math.random() - 0.5) * 0.5;
-    this.vy = (Math.random() - 0.5) * 0.5;
+    this.vx = getRandomVelocity();
+    this.vy = getRandomVelocity();
     this.radius = 2 + Math.random() * 2;
     const colors = ['#39ff14', '#00ffe7', '#00ffa0'];
     this.color = colors[Math.floor(Math.random() * colors.length)];
@@ -54,15 +59,14 @@ class Node {
   }
 }
 
-// Repel effect from mouse
 function repelFromMouse(node) {
   if (!mouse.active) return;
 
   const dx = node.x - mouse.x;
   const dy = node.y - mouse.y;
   const dist = Math.hypot(dx, dy);
-
   const repelRadius = 150;
+
   if (dist < repelRadius) {
     const force = (repelRadius - dist) / repelRadius;
     const angle = Math.atan2(dy, dx);
@@ -74,7 +78,6 @@ function repelFromMouse(node) {
   node.vy *= 0.95;
 }
 
-// Connect Nodes Function
 function connectNodes() {
   for (let i = 0; i < NODE_COUNT; i++) {
     for (let j = i + 1; j < NODE_COUNT; j++) {
@@ -94,7 +97,6 @@ function connectNodes() {
   }
 }
 
-// Animation Loop
 function animate() {
   ctx.clearRect(0, 0, width, height);
   nodes.forEach(node => {
@@ -105,7 +107,6 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// Initialize Nodes
 function init() {
   resize();
   nodes = [];
@@ -115,7 +116,6 @@ function init() {
   animate();
 }
 
-// Event Listeners
 window.addEventListener('resize', () => {
   clearTimeout(window.resizeTimeout);
   window.resizeTimeout = setTimeout(init, 200);
@@ -132,5 +132,4 @@ canvas.addEventListener('mouseleave', () => {
   mouse.active = false;
 });
 
-// Start the animation on page load
 window.addEventListener('load', init);
