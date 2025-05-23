@@ -51,12 +51,54 @@
       }
     }
 
+    .zeno-box {
+      border: 2px solid #00ff9f;
+      padding: 20px;
+      display: inline-block;
+      margin-bottom: 1em;
+      box-shadow:
+        0 0 10px #00ffcc,
+        0 0 20px #00ffcc,
+        inset 0 0 10px #00ffcc;
+      background: rgba(0, 0, 0, 0.2);
+      position: relative;
+      animation: flicker 2.5s infinite alternate;
+      backdrop-filter: blur(6px);
+    }
+
+    .zeno-box::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 255, 200, 0.08),
+        rgba(0, 255, 200, 0.08) 1px,
+        transparent 2px,
+        transparent 3px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 1; }
+      5% { opacity: 0.8; }
+      10% { opacity: 0.9; }
+      20% { opacity: 0.6; }
+      25% { opacity: 0.95; }
+      30% { opacity: 0.85; }
+      40% { opacity: 1; }
+      100% { opacity: 0.9; }
+    }
+
     h1.title {
       font-family: 'Orbitron', sans-serif;
       font-weight: 800;
       font-size: 5.5rem;
       letter-spacing: 0.32em;
-      margin-bottom: 0.5em;
+      margin: 0;
       color: #000;
       text-shadow:
         -2px -2px 0 var(--ai-glow),
@@ -64,6 +106,8 @@
         -2px 2px 0 var(--ai-glow),
         2px 2px 0 var(--ai-glow),
         0 0 12px #ffe868;
+      position: relative;
+      z-index: 2;
     }
 
     .zeno-light {
@@ -73,10 +117,6 @@
       letter-spacing: 0.15em;
       margin: 1em 0 0.5em;
       text-shadow: 0 0 20px #00ffea;
-    }
-
-    p {
-      margin: 1em 0;
     }
 
     .main-text {
@@ -118,7 +158,9 @@
 </head>
 <body>
   <div class="card">
-    <h1 class="title">ZENØ</h1>
+    <div class="zeno-box">
+      <h1 class="title">ZENØ</h1>
+    </div>
     <p class="highlight-alt">Enter The Realm Where Intelligence Breathes</p>
 
     <p class="zeno-light">ZENØ</p>
