@@ -1,1 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani&family=Share+Tech+Mono&display=swap');
+/* fonts.css */
+
+/* Import Rajdhani font */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;700&display=swap');
+
+/* Import Orbitron font */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');
+
+/* Import Share Tech Mono font */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
