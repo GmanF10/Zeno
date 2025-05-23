@@ -1,4 +1,4 @@
-/* ZENØ Unified Neon Theme CSS */
+/* ZENÃ˜ Unified Neon Theme CSS */
 
 :root {
   --neon-green: #65ec4df8;
@@ -215,8 +215,8 @@ body, html {
   opacity: 0.6;
 }
 
-.user-icon::before { content: '👤'; }
-.lock-icon::before { content: '🔒'; }
+.user-icon::before { content: 'ðŸ‘¤'; }
+.lock-icon::before { content: 'ðŸ”’'; }
 
 #status, #regStatus {
   margin-top: 15px;
