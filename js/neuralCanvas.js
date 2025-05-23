@@ -31,7 +31,7 @@ function resize() {
 function getRandomVelocity() {
   let speed;
   do {
-    speed = (Math.random() - 0.5) * SPEED_MULTIPLIER;
+    speed = (Math.random() - 0.1) * SPEED_MULTIPLIER;
   } while (Math.abs(speed) < SPEED_MULTIPLIER / 6); // ensure it's not too slow
   return speed;
 }
