@@ -43,7 +43,7 @@ body, html {
   padding: 20px;
   background: rgba(10, 10, 10, 0.5); /* Semi-transparent background */
   backdrop-filter: blur(10px); /* Glassmorphism effect */
-  z-index: 100;
+  z-index: 3;
 }
 
 .header-content {
@@ -96,7 +96,7 @@ body, html {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: -2;
 }
 
 /* Main Card */
@@ -112,6 +112,7 @@ body, html {
   border: 2px solid #00fc00d0;
   animation: glowPulse 3s ease-in-out infinite;
   margin: 80px auto;
+  z-index: 2; /* Higher than canvas */
 }
 
 @keyframes glowPulse {
