@@ -1,5 +1,6 @@
 // ZENØ neuralCanvas.js – fixed node bounce and movement
 
+console.log("✅ neuralCanvas.js loaded");
 const canvas = document.getElementById('neuralCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -98,6 +99,8 @@ function connectNodes() {
 }
 
 function animate() {
+  console.log("⏳ animation frame"); // Debug line to verify animation loop
+
   ctx.clearRect(0, 0, width, height);
   nodes.forEach(node => {
     node.move();
