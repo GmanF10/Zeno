@@ -25,13 +25,16 @@ function resize() {
   canvas.width = width;
   canvas.height = height;
   canvas.style.display = 'block';
+
+  // Debugging log to ensure resize is happening
+  console.log(`Canvas resized: width=${width}, height=${height}`);
 }
 
 // Function to generate random velocity for nodes
 function getRandomVelocity() {
   let speed;
   do {
-    speed = (Math.random() - 0.1) * SPEED_MULTIPLIER;
+    speed = (Math.random() - 0.5) * SPEED_MULTIPLIER;
   } while (Math.abs(speed) < SPEED_MULTIPLIER / 6); // ensure it's not too slow
   return speed;
 }
@@ -52,6 +55,8 @@ class Node {
   move() {
     this.x += this.vx;
     this.y += this.vy;
+
+    console.log(`Node position: x=${this.x.toFixed(2)}, y=${this.y.toFixed(2)}, vx=${this.vx}, vy=${this.vy}`); // Debug position and velocity
 
     // Repel nodes from the mouse pointer
     repelFromMouse(this);
