@@ -10,7 +10,7 @@ const NODE_COUNT = 100;
 const MAX_DISTANCE = 150;
 
 // Global speed multiplier for node movement
-const SPEED_MULTIPLIER = 0.1;  // Slower speed for smoother movement
+const SPEED_MULTIPLIER = 0.2;  // Slower speed for smoother movement
 
 // Resize canvas to fill window
 function resize() {
@@ -18,7 +18,6 @@ function resize() {
   height = window.innerHeight;
   canvas.width = width;  // Set canvas width to window width
   canvas.height = height;  // Set canvas height to window height
-  canvas.style.display = 'block'; // Ensure canvas is visible
 
   // Debugging log to ensure resize is happening
   console.log(`Canvas resized: width=${width}, height=${height}`);
@@ -41,6 +40,7 @@ class Node {
     this.vx = getRandomVelocity();  // Horizontal velocity
     this.vy = getRandomVelocity();  // Vertical velocity
     this.radius = 2 + Math.random() * 2;  // Random radius between 2 and 4
+    this.baseRadius = this.radius; // Store the initial radius for pulsing
     this.pulseDirection = 1;
     this.colorHue = 140 + Math.random() * 60; // green to cyan hues
   }
@@ -108,9 +108,12 @@ function connectNodes() {
       const dx = nodes[i].x - nodes[j].x;
       const dy = nodes[i].y - nodes[j].y;
       const dist = Math.hypot(dx, dy);
+
       if (dist < MAX_DISTANCE) {
-        const alpha = 1 - dist / MAX_DISTANCE;
-        ctx.strokeStyle = `hsla(${nodes[i].colorHue}, 100%, 70%, ${alpha * 0.7})`;
+        // Ensure alpha is between 0 and 1 for opacity control
+        const alpha = Math.max(0, Math.min(1, (1 - dist / MAX_DISTANCE) * 0.7));
+
+        ctx.strokeStyle = `hsla(${nodes[i].colorHue}, 100%, 70%, ${alpha})`;  // Set opacity based on distance
         ctx.lineWidth = 1;
         ctx.shadowColor = ctx.strokeStyle;
         ctx.shadowBlur = 8;
