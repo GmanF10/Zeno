@@ -3,13 +3,31 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+:root {
+  --neon-green: #65ec4df8;
+  --ai-glow: #09d65ec7;
+  --bg-dark: #0c0c0f;
+  --text-glow: #38d868da;
+  --highlight: #3ed410c5;
+}
+
+/* Base html & body styles */
 html, body {
   height: 100%;
-  background: #0b0b0f; /* fallback background color */
   overflow: hidden; /* prevent scrollbars from canvas */
+  background-color: var(--bg-dark);
+  background-image:
+    linear-gradient(rgba(57, 255, 20, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 255, 20, 0.07) 1px, transparent 1px);
+  background-size: 60px 60px;
+  font-family: 'Rajdhani', sans-serif; /* keep Rajdhani globally */
+  color: var(--text-glow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
 }
 
 /* Container for login form */
@@ -19,24 +37,25 @@ html, body {
   width: 360px;
   margin: 100px auto;
   padding: 30px 40px;
-  background: rgba(0, 0, 0, 0.65); /* translucent black */
+  background: rgba(0, 0, 0, 0.65);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
   color: #e0e0e0;
   backdrop-filter: blur(10px);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* override for form */
 }
 
-/* Heading */
+/* Headings */
 .container h2 {
   margin-bottom: 20px;
   font-weight: 700;
   font-size: 28px;
   text-align: center;
-  color: #39ff14; /* neon green for AI vibe */
-  text-shadow: 0 0 6px #39ff14;
+  color: var(--neon-green);
+  text-shadow: 0 0 6px var(--neon-green);
 }
 
-/* Input fields */
+/* Inputs */
 input[type="email"],
 input[type="password"] {
   width: 100%;
@@ -48,32 +67,32 @@ input[type="password"] {
   color: #e0e0e0;
   font-size: 16px;
   outline: none;
-  box-shadow: inset 0 0 5px #39ff14;
+  box-shadow: inset 0 0 5px var(--neon-green);
   position: relative;
 }
 
-/* Icons inside input - positioned via container or separate spans */
+/* Icons inside input */
 .input-icon {
   position: absolute;
   right: 15px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
-  color: #39ff14;
+  color: var(--neon-green);
   font-size: 18px;
 }
 
-/* Unified button styles */
+/* Buttons */
 .button {
   padding: 14px 20px;
   font-size: 18px;
   font-weight: 600;
-  color: #0b0b0f;
-  background-color: #39ff14;
+  color: var(--bg-dark);
+  background-color: var(--neon-green);
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 0 12px #39ff14;
+  box-shadow: 0 0 12px var(--neon-green);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   display: inline-block;
   text-align: center;
@@ -92,11 +111,75 @@ input[type="password"] {
   font-weight: 600;
 }
 
-/* Responsive tweaks */
+/* Canvas background */
+canvas#neuralCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+/* Card styles (if used elsewhere) */
+.card {
+  background: rgba(48, 45, 45, 0.15);
+  border-radius: 20px;
+  padding: 40px 30px;
+  max-width: 750px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 15px var(--neon-green), inset 0 0 30px var(--neon-green);
+  backdrop-filter: blur(14px);
+  border: 2px solid #00fc00d0;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px var(--neon-green), inset 0 0 30px var(--neon-green);
+  }
+  50% {
+    box-shadow: 0 0 30px var(--neon-green), inset 0 0 45px var(--neon-green);
+  }
+}
+
+@keyframes flicker {
+  0% { opacity: 1; }
+  5% { opacity: 0.8; }
+  10% { opacity: 0.9; }
+  20% { opacity: 0.6; }
+  25% { opacity: 0.95; }
+  30% { opacity: 0.85; }
+  40% { opacity: 1; }
+  100% { opacity: 0.9; }
+}
+
+/* Responsive */
 @media (max-width: 400px) {
   .container {
     width: 90%;
     margin: 80px auto;
     padding: 25px 20px;
+  }
+}
+
+@media (max-width: 700px) {
+  .card {
+    padding: 20px;
+  }
+
+  h1.title {
+    font-size: 3rem;
+  }
+
+  .main-text {
+    font-size: 1rem;
+  }
+
+  .link-button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
   }
 }
