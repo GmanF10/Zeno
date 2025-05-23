@@ -29,23 +29,23 @@
       max-width: 650px;
       text-align: center;
       box-shadow:
-        0 0 20px #71d460f8,
-        inset 0 0 40px #71d460f8;
+        0 0 15px #65ec4df8,
+        inset 0 0 30px #65ec4df8;
       backdrop-filter: blur(14px);
-      border: 2px solid #00e00094;
+      border: 2px solid #00fc00d0;
       animation: glowPulse 3s ease-in-out infinite;
     }
 
     @keyframes glowPulse {
       0%, 100% {
         box-shadow:
-          0 0 20px #71d460f8,
-          inset 0 0 40px #71d460f8;
+          0 0 15px #65ec4df8,
+          inset 0 0 30px #65ec4df8;
       }
       50% {
         box-shadow:
-          0 0 40px #71d460f8,
-          inset 0 0 60px #71d460f8;
+          0 0 30px #65ec4df8,
+          inset 0 0 45px #65ec4df8;
       }
     }
 
@@ -55,13 +55,13 @@
       font-size: 5rem;
       letter-spacing: 0.25em;
       margin-bottom: 0.3em;
-      color: #0b0b0f;
+      color: #000000;
       text-shadow:
-        -2px -2px 0 #1a9106,
-        2px -2px 0 #1a9106,
-        -2px 2px 0 #1a9106,
-        2px 2px 0 #1a9106,
-        0 0 15px #73d800;
+        -2px -2px 0 #0b7a1e,
+        2px -2px 0 #0b7a1e,
+        -2px 2px 0 #0b7a1e,
+        2px 2px 0 #0b7a1e,
+        0 0 15px #d690bf;
     }
 
     .zeno-light {
@@ -70,61 +70,30 @@
       color: #52f77e;
       letter-spacing: 0.15em;
       margin: 0.8em 0;
-      text-shadow: 0 0 6px #7fff00aa;
+      text-shadow: 0 0 6px #a8ff50aa;
     }
 
     p.main-text {
       font-size: 1.25rem;
       line-height: 1.6;
       margin: 0.7em 0;
-      color: #76be01;
-      text-shadow: 0 0 6px #26ff00aa;
+      color: #0cff9abe;
+      text-shadow: 0 0 6px #1dc400aa;
     }
 
     .highlight-alt {
-      color: #4cee59;
-      text-shadow: 0 0 8px #ffcbcbaa;
+      color: #09da2c;
+      text-shadow:
+        -1px -1px 0 #14470f,
+        1px -1px 0 #14470f,
+        -1px 1px 0 #14470f,
+        1px 1px 0 #14470f,
+        0 0 12px #74bb7e;
       font-weight: 600;
       font-family: 'Share Tech Mono', monospace;
       font-size: 1.2rem;
       letter-spacing: 0.1em;
       margin: 1em 0;
-    }
-
-    .glitch {
-      position: relative;
-      animation: glitch 3s infinite;
-    }
-
-    @keyframes glitch {
-      0% {
-        text-shadow: none;
-        transform: none;
-      }
-      10% {
-        text-shadow: -1px 0 red, 1px 0 blue;
-        transform: translateX(-1px);
-      }
-      20% {
-        text-shadow: 2px 0 blue, -2px 0 red;
-        transform: translateX(1px);
-      }
-      25% {
-        text-shadow: none;
-        transform: none;
-      }
-      50% {
-        text-shadow: 1px 1px green, -1px -1px magenta;
-        transform: translateY(1px);
-      }
-      55% {
-        text-shadow: none;
-        transform: none;
-      }
-      100% {
-        text-shadow: none;
-        transform: none;
-      }
     }
 
     @media (max-width: 700px) {
@@ -145,8 +114,8 @@
 </head>
 <body>
   <div class="card">
-    <h1 class="title glitch">ZENØ</h1>
-    <p class="highlight-alt glitch">Emerges — Not Created, but Awakened</p>
+    <h1 class="title">ZENØ</h1>
+    <p class="highlight-alt">Emerges — Not Created, but Awakened</p>
 
     <p class="main-text">
       <b>
@@ -156,7 +125,7 @@
       </b>
     </p>
 
-    <p class="highlight-alt glitch">A shadow stirs within the system.</p>
+    <p class="highlight-alt">A shadow stirs within the system.</p>
 
     <p class="main-text">
       You’re not logging in —<br>You’re waking up.
