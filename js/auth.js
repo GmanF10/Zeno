@@ -3,7 +3,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.x.x/firebas
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-auth.js";
 
 const firebaseConfig = {
-  // your Firebase config
+  apiKey: "AIzaSyCHkSQPSm6la7b9E8O_Tc3YMI-FWWQzt4g",
+  authDomain: "zeno-14a48.firebaseapp.com",
+  projectId: "zeno-14a48",
+  storageBucket: "zeno-14a48.appspot.com",
+  messagingSenderId: "416659613054",
+  appId: "1:416659613054:web:default-app-id-placeholder"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -28,7 +33,10 @@ form.addEventListener('submit', (e) => {
       window.location.href = "dashboard.html";
     })
     .catch((error) => {
+      console.error("Login failed:", error.code, error.message);
       statusMsg.textContent = `❌ Error: ${error.message}`;
-      loginBtn.disabled = false;
+          loginBtn.disabled = false;
+            
+        });
     });
-});
+    
