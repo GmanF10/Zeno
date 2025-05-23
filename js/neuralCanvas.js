@@ -2,28 +2,23 @@
 
 console.log("✅ neuralCanvas.js loaded");
 const canvas = document.getElementById('neuralCanvas');
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d'); // ctx is still needed for rendering
 
 let width, height;
 let nodes = [];
-let particles = [];
 const NODE_COUNT = 100;
-const PARTICLE_COUNT = 150;
 const MAX_DISTANCE = 150;
 
 // Global speed multiplier for node movement
 const SPEED_MULTIPLIER = 0.1;  // Slower speed for smoother movement
 
-// Mouse interaction logic
-const mouse = { x: 0, y: 0, active: false };
-
 // Resize canvas to fill window
 function resize() {
   width = window.innerWidth;
   height = window.innerHeight;
-  canvas.width = width;
-  canvas.height = height;
-  canvas.style.display = 'block';
+  canvas.width = width;  // Set canvas width to window width
+  canvas.height = height;  // Set canvas height to window height
+  canvas.style.display = 'block'; // Ensure canvas is visible
 
   // Debugging log to ensure resize is happening
   console.log(`Canvas resized: width=${width}, height=${height}`);
@@ -106,42 +101,13 @@ class Node {
   }
 }
 
-// Particle class to represent background particles
-class Particle {
-  constructor() {
-    this.x = Math.random() * width;
-    this.y = Math.random() * height;
-    this.radius = Math.random() * 0.8 + 0.3;
-    this.vx = (Math.random() - 0.5) * 0.15;
-    this.vy = (Math.random() - 0.5) * 0.15;
-    this.opacity = Math.random() * 0.3 + 0.1;
-  }
-
-  move() {
-    this.x += this.vx;
-    this.y += this.vy;
-
-    if (this.x < 0) this.x = width;
-    else if (this.x > width) this.x = 0;
-    if (this.y < 0) this.y = height;
-    else if (this.y > height) this.y = 0;
-  }
-
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(57, 255, 20, ${this.opacity})`;
-    ctx.fill();
-  }
-}
-
 // Connect nodes with lines if they are close enough
 function connectNodes() {
   for (let i = 0; i < NODE_COUNT; i++) {
     for (let j = i + 1; j < NODE_COUNT; j++) {
       const dx = nodes[i].x - nodes[j].x;
       const dy = nodes[i].y - nodes[j].y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+      const dist = Math.hypot(dx, dy);
       if (dist < MAX_DISTANCE) {
         const alpha = 1 - dist / MAX_DISTANCE;
         ctx.strokeStyle = `hsla(${nodes[i].colorHue}, 100%, 70%, ${alpha * 0.7})`;
@@ -161,12 +127,6 @@ function connectNodes() {
 function animate() {
   ctx.clearRect(0, 0, width, height);
 
-  // Draw particles first (background)
-  particles.forEach((p) => {
-    p.move();
-    p.draw();
-  });
-
   // Move and draw nodes
   nodes.forEach((node) => {
     node.move();
@@ -178,7 +138,6 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// Initialize nodes and particles
 function init() {
   resize();
 
@@ -187,14 +146,8 @@ function init() {
     nodes.push(new Node());
   }
 
-  particles = [];
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    particles.push(new Particle());
-  }
-
   animate();
 }
 
-// Event listeners
 window.addEventListener('resize', resize);
 init();
