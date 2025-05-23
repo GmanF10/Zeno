@@ -1,10 +1,3 @@
-/* Reset & base */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 :root {
   --neon-green: #65ec4df8;
   --ai-glow: #09d65ec7;
@@ -13,105 +6,22 @@
   --highlight: #3ed410c5;
 }
 
-/* Base html & body styles */
-html, body {
-  height: 100%;
-  overflow: hidden; /* prevent scrollbars from canvas */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: var(--bg-dark);
   background-image:
     linear-gradient(rgba(57, 255, 20, 0.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(57, 255, 20, 0.07) 1px, transparent 1px);
   background-size: 60px 60px;
-  font-family: 'Rajdhani', sans-serif; /* keep Rajdhani globally */
+  font-family: 'Rajdhani', sans-serif;
+  overflow: hidden;
   color: var(--text-glow);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
 }
 
-/* Container for login form */
-.container {
-  position: relative;
-  z-index: 10;
-  width: 360px;
-  margin: 100px auto;
-  padding: 30px 40px;
-  background: rgba(0, 0, 0, 0.65);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
-  color: #e0e0e0;
-  backdrop-filter: blur(10px);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* override for form */
-}
-
-/* Headings */
-.container h2 {
-  margin-bottom: 20px;
-  font-weight: 700;
-  font-size: 28px;
-  text-align: center;
-  color: var(--neon-green);
-  text-shadow: 0 0 6px var(--neon-green);
-}
-
-/* Inputs */
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 12px 40px 12px 12px;
-  margin-bottom: 20px;
-  border: none;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #e0e0e0;
-  font-size: 16px;
-  outline: none;
-  box-shadow: inset 0 0 5px var(--neon-green);
-  position: relative;
-}
-
-/* Icons inside input */
-.input-icon {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: var(--neon-green);
-  font-size: 18px;
-}
-
-/* Buttons */
-.button {
-  padding: 14px 20px;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--bg-dark);
-  background-color: var(--neon-green);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 0 12px var(--neon-green);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  display: inline-block;
-  text-align: center;
-  user-select: none;
-}
-
-.button:hover {
-  background-color: #2ed700;
-  box-shadow: 0 0 20px #2ed700;
-}
-
-/* Status messages */
-#status {
-  margin-top: 15px;
-  text-align: center;
-  font-weight: 600;
-}
-
-/* Canvas background */
 canvas#neuralCanvas {
   position: fixed;
   top: 0;
@@ -121,7 +31,6 @@ canvas#neuralCanvas {
   z-index: -1;
 }
 
-/* Card styles (if used elsewhere) */
 .card {
   background: rgba(48, 45, 45, 0.15);
   border-radius: 20px;
@@ -135,9 +44,9 @@ canvas#neuralCanvas {
   animation: glowPulse 3s ease-in-out infinite;
 }
 
-/* Animations */
 @keyframes glowPulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 15px var(--neon-green), inset 0 0 30px var(--neon-green);
   }
   50% {
@@ -145,24 +54,137 @@ canvas#neuralCanvas {
   }
 }
 
-@keyframes flicker {
-  0% { opacity: 1; }
-  5% { opacity: 0.8; }
-  10% { opacity: 0.9; }
-  20% { opacity: 0.6; }
-  25% { opacity: 0.95; }
-  30% { opacity: 0.85; }
-  40% { opacity: 1; }
-  100% { opacity: 0.9; }
+.zeno-box {
+  border: 2px solid #65ec4df8;
+  padding: 20px;
+  display: inline-block;
+  margin-bottom: 1em;
+  box-shadow:
+    0 0 10px #09d65ec7,
+    0 0 20px #09d65ec7,
+    inset 0 0 10px #049c43c7;
+  background: rgba(9, 32, 2, 0.596);
+  position: relative;
+  animation: flicker 2.5s infinite alternate;
+  backdrop-filter: blur(6px);
 }
 
-/* Responsive */
-@media (max-width: 400px) {
-  .container {
-    width: 90%;
-    margin: 80px auto;
-    padding: 25px 20px;
+.zeno-box::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 255, 200, 0.08),
+    rgba(0, 255, 200, 0.08) 1px,
+    transparent 2px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 1;
   }
+  5% {
+    opacity: 0.8;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  25% {
+    opacity: 0.95;
+  }
+  30% {
+    opacity: 0.85;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+h1.title {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 5rem;
+  letter-spacing: 0.32em;
+  margin: 0;
+  color: #000;
+  text-shadow: -2px -2px 0 var(--ai-glow),
+    2px -2px 0 var(--ai-glow),
+    -2px 2px 0 var(--ai-glow),
+    2px 2px 0 var(--ai-glow),
+    0 0 12px #ffe868;
+  position: relative;
+  z-index: 2;
+}
+
+.zeno-light {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  color: #000;
+  letter-spacing: 0.15em;
+  margin: 1em 0 0.5em;
+  text-shadow: 0 0 20px #00ffea;
+}
+
+.main-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--text-glow);
+  text-shadow: 0 0 6px #000000aa;
+  margin-bottom: 1em;
+}
+
+.highlight-alt {
+  color: var(--highlight);
+  font-weight: 600;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  text-shadow: -1px -1px 0 #164400, 1px -1px 0 #164400, -1px 1px 0 #164400,
+    1px 1px 0 #164400, 0 0 6px #164400;
+  margin: 1em 0 0.5em;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.link-button {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 2px solid var(--neon-green);
+  color: var(--text-glow);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 0 8px var(--neon-green);
+  transition: all 0.3s ease;
+}
+
+.link-button:hover {
+  background-color: var(--neon-green);
+  color: #000;
+  box-shadow: 0 0 16px var(--neon-green), 0 0 24px var(--neon-green);
 }
 
 @media (max-width: 700px) {
