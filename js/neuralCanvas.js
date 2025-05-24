@@ -9,13 +9,15 @@
     let lastMouseMoveTime = 0;
     let lastMousePosition = { x: 0, y: 0 };
     const mouseMoveThreshold = 30; // pixels
-    let frameSkip = 2; // Skip every 2nd frame for node/particle movement
-    let currentFrame = 0;
 
     function init() {
-      canvas = document.getElementById('neuralCanvas') || createCanvas();
-      ctx = canvas.getContext('2d');
+      // Check if canvas already exists
+      canvas = document.getElementById('neuralCanvas');
+      if (!canvas) {
+        canvas = createCanvas();  // Only create canvas if it doesn't exist
+      }
 
+      ctx = canvas.getContext('2d');
       if (!ctx) {
         console.error('2D context not available for neuralCanvas.');
         return;
@@ -37,8 +39,8 @@
       newCanvas.style.left = '0';
       newCanvas.style.width = '100vw';
       newCanvas.style.height = '100vh';
-      newCanvas.style.zIndex = '-1';
-      newCanvas.style.background = 'transparent';
+      newCanvas.style.zIndex = '-1';  // Ensure it's behind other content
+      newCanvas.style.background = 'transparent'; // Make the background transparent
       document.body.appendChild(newCanvas);
       return newCanvas;
     }
@@ -54,6 +56,17 @@
 
       canvas.addEventListener('mouseleave', () => {
         mouse.active = false;
+      });
+    }
+
+    function updateGrid() {
+      grid = {};  // Reset the grid each time
+      nodes.forEach((node) => {
+        const gridX = Math.floor(node.x / GRID_SIZE);
+        const gridY = Math.floor(node.y / GRID_SIZE);
+        const key = `${gridX},${gridY}`;
+        if (!grid[key]) grid[key] = [];
+        grid[key].push(node);  // Add node to the grid cell
       });
     }
 
@@ -99,7 +112,6 @@
       nodes = Array.from({ length: NODE_COUNT }, () => new Node());
       particles = Array.from({ length: PARTICLE_COUNT }, () => new Particle());
 
-      // Log node and particle creation
       console.log('Created nodes:', nodes);
       console.log('Created particles:', particles);
 
@@ -137,24 +149,19 @@
     }
 
     function animate() {
-      if (currentFrame % frameSkip === 0) {
-        ctx.clearRect(0, 0, width, height);
-        ctx.shadowBlur = 0;
-        ctx.shadowColor = 'transparent';
+      console.log('Animating...');
+      ctx.clearRect(0, 0, width, height);
 
-        // Draw particles and nodes
-        particles.forEach((p) => { p.move(); p.draw(); });
-        nodes.forEach((node) => {
-          repelFromMouse();
-          node.move();
-          node.draw();
-        });
+      particles.forEach((p) => { p.move(); p.draw(); });
+      nodes.forEach((node) => {
+        repelFromMouse();
+        node.move();
+        node.draw();
+      });
 
-        updateGrid();
-        connectNodes();
-      }
-      currentFrame++;
-      requestAnimationFrame(animate);
+      updateGrid();  // Update the grid
+      connectNodes();
+      requestAnimationFrame(animate);  // Continue the animation
     }
 
     function connectNodes() {
@@ -226,7 +233,6 @@
       }
 
       draw() {
-        console.log('Drawing node at:', this.x, this.y); // Debug log for node position
         const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius * 3);
         gradient.addColorStop(0, `hsla(${this.colorHue}, 100%, 70%, 0.9)`);
         gradient.addColorStop(1, `hsla(${this.colorHue}, 100%, 70%, 0)`);
@@ -276,7 +282,6 @@
       }
 
       draw() {
-        console.log('Drawing particle at:', this.x, this.y); // Debug log for particle position
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(57, 255, 20, ${this.opacity})`;
