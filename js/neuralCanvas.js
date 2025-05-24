@@ -1,122 +1,55 @@
 (function() {
   const canvasManager = (() => {
-    let canvas;
-    let ctx;
-    let width = window.innerWidth;
-    let height = window.innerHeight;
+    let canvas, ctx;
+    let width = window.innerWidth, height = window.innerHeight;
     let dpr = window.devicePixelRatio || 1;
-    let nodes = [];
-    let particles = [];
-    const NODE_COUNT = 100;
-    const PARTICLE_COUNT = 120; // Number of background particles
-    const MAX_DISTANCE = 120; // Maximum distance for node connections
-    const GRID_SIZE = 150; // Size of each grid cell for spatial partitioning
+    let nodes = [], particles = [];
+    const NODE_COUNT = 100, PARTICLE_COUNT = 120, MAX_DISTANCE = 120, GRID_SIZE = 150;
     let grid = {};
+    let lastMouseMoveTime = 0;
+    let lastMousePosition = { x: 0, y: 0 };
+    const mouseMoveThreshold = 30; // pixels
+    let frameSkip = 2; // Skip every 2nd frame for node/particle movement
+    let currentFrame = 0;
 
-    // Initialize the canvas and context
     function init() {
-      canvas = document.getElementById('neuralCanvas');
-      if (canvas) {
-        ctx = canvas.getContext('2d');
-        if (!ctx) {
-          console.warn('Canvas context is invalid. Replacing the canvas element.');
-          canvas.remove();
-          canvas = null;
-        }
-      }
-      if (!canvas) {
-        canvas = document.createElement('canvas');
-        canvas.id = 'neuralCanvas';
-        canvas.style.position = 'fixed';
-        canvas.style.top = '0';
-        canvas.style.left = '0';
-        canvas.style.width = '100vw';
-        canvas.style.height = '100vh';
-        canvas.style.zIndex = '-1';
-        canvas.style.background = 'transparent';
-        document.body.appendChild(canvas);
-      }
+      canvas = document.getElementById('neuralCanvas') || createCanvas();
       ctx = canvas.getContext('2d');
+
       if (!ctx) {
         console.error('2D context not available for neuralCanvas.');
         return;
       }
 
-      // Debugging: Log canvas and context
       console.log('Canvas:', canvas);
       console.log('Context:', ctx);
 
       resize();
       setupListeners();
+      initNodesParticles();
     }
 
-    // Mouse repulsion interaction for nodes
-    const mouse = {
-      x: 0,
-      y: 0,
-      active: false
-    };
-
-    // Update the grid to optimize node proximity checks
-    function updateGrid() {
-      grid = {};
-      nodes.forEach((node) => {
-        const gridX = Math.floor(node.x / GRID_SIZE);
-        const gridY = Math.floor(node.y / GRID_SIZE);
-        const key = `${gridX},${gridY}`;
-        if (!grid[key]) grid[key] = [];
-        grid[key].push(node);
-      });
+    function createCanvas() {
+      const newCanvas = document.createElement('canvas');
+      newCanvas.id = 'neuralCanvas';
+      newCanvas.style.position = 'fixed';
+      newCanvas.style.top = '0';
+      newCanvas.style.left = '0';
+      newCanvas.style.width = '100vw';
+      newCanvas.style.height = '100vh';
+      newCanvas.style.zIndex = '-1';
+      newCanvas.style.background = 'transparent';
+      document.body.appendChild(newCanvas);
+      return newCanvas;
     }
 
-    // Handle mouse repulsion based on grid cells
-    function repelFromMouse(node) {
-      if (!mouse.active) return;
-      const gridX = Math.floor(mouse.x / GRID_SIZE);
-      const gridY = Math.floor(mouse.y / GRID_SIZE);
-      const nearbyCells = [
-        `${gridX},${gridY}`,
-        `${gridX - 1},${gridY}`,
-        `${gridX + 1},${gridY}`,
-        `${gridX},${gridY - 1}`,
-        `${gridX},${gridY + 1}`,
-        `${gridX - 1},${gridY - 1}`,
-        `${gridX + 1},${gridY + 1}`,
-        `${gridX - 1},${gridY + 1}`,
-        `${gridX + 1},${gridY - 1}`,
-      ];
-
-      const repelRadius = 150;
-      const repelRadiusSquared = repelRadius * repelRadius;
-
-      nearbyCells.forEach((key) => {
-        if (grid[key]) {
-          grid[key].forEach((otherNode) => {
-            const dx = otherNode.x - mouse.x;
-            const dy = otherNode.y - mouse.y;
-            const distSquared = dx * dx + dy * dy;
-            if (distSquared < repelRadiusSquared) {
-              const dist = Math.sqrt(distSquared);
-              const force = (repelRadius - dist) / repelRadius;
-              const angle = Math.atan2(dy, dx);
-              otherNode.vx += Math.cos(angle) * force * 0.5;
-              otherNode.vy += Math.sin(angle) * force * 0.5;
-            }
-          });
-        }
-      });
-    }
-
-    // Set up event listeners for mouse interaction
+    const mouse = { x: 0, y: 0, active: false };
     function setupListeners() {
-      if (!canvas) return;
       canvas.addEventListener('mousemove', (e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
         mouse.active = true;
-
-        // Debugging: Log mouse position
-        console.log('Mouse Position:', mouse.x, mouse.y);
+        console.log('Mouse Position:', mouse.x, mouse.y);  // Debugging log for mouse position
       });
 
       canvas.addEventListener('mouseleave', () => {
@@ -124,95 +57,106 @@
       });
     }
 
-    // Node class for the moving points
-    class Node {
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.6;
-        this.vy = (Math.random() - 0.5) * 0.6;
-        this.baseRadius = 1 + Math.random() * 2.5;
-        this.radius = this.baseRadius;
-        this.pulseDirection = 1;
-        this.colorHue = 140 + Math.random() * 60; // green to cyan hues
+    function repelFromMouse() {
+      if (!mouse.active) return;
+
+      const currentTime = Date.now();
+      if (currentTime - lastMouseMoveTime > 50 || 
+          (Math.abs(mouse.x - lastMousePosition.x) > mouseMoveThreshold || Math.abs(mouse.y - lastMousePosition.y) > mouseMoveThreshold)) {
+        lastMouseMoveTime = currentTime;
+        lastMousePosition = { x: mouse.x, y: mouse.y };
+
+        const gridX = Math.floor(mouse.x / GRID_SIZE);
+        const gridY = Math.floor(mouse.y / GRID_SIZE);
+        const nearbyCells = [
+          `${gridX},${gridY}`, `${gridX-1},${gridY}`, `${gridX+1},${gridY}`,
+          `${gridX},${gridY-1}`, `${gridX},${gridY+1}`, `${gridX-1},${gridY-1}`,
+          `${gridX+1},${gridY+1}`, `${gridX-1},${gridY+1}`, `${gridX+1},${gridY-1}`
+        ];
+
+        const repelRadius = 150, repelRadiusSquared = repelRadius * repelRadius;
+
+        nearbyCells.forEach((key) => {
+          if (grid[key]) {
+            grid[key].forEach((otherNode) => {
+              const dx = otherNode.x - mouse.x;
+              const dy = otherNode.y - mouse.y;
+              const distSquared = dx * dx + dy * dy;
+              if (distSquared < repelRadiusSquared) {
+                const dist = Math.sqrt(distSquared);
+                const force = (repelRadius - dist) / repelRadius;
+                const angle = Math.atan2(dy, dx);
+                otherNode.vx += Math.cos(angle) * force * 0.5;
+                otherNode.vy += Math.sin(angle) * force * 0.5;
+              }
+            });
+          }
+        });
       }
+    }
 
-      move() {
-        this.x += this.vx;
-        this.y += this.vy;
-        if (this.x <= 0 || this.x >= width) this.vx *= -1;
-        if (this.y <= 0 || this.y >= height) this.vy *= -1;
+    function initNodesParticles() {
+      nodes = Array.from({ length: NODE_COUNT }, () => new Node());
+      particles = Array.from({ length: PARTICLE_COUNT }, () => new Particle());
 
-        // Pulse radius gently
-        this.radius += 0.02 * this.pulseDirection;
-        if (this.radius > this.baseRadius * 1.3 || this.radius < this.baseRadius * 0.7) {
-          this.pulseDirection *= -1;
-        }
+      // Log node and particle creation
+      console.log('Created nodes:', nodes);
+      console.log('Created particles:', particles);
 
-        // Slowly shift color hue
-        this.colorHue += 0.2;
-        if (this.colorHue > 200) this.colorHue = 140; // Reset to the lower bound of the initialization range
-      }
+      requestAnimationFrame(animate);  // Start the animation loop
+    }
 
-      draw() {
-        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius * 3);
-        gradient.addColorStop(0, `hsla(${this.colorHue}, 100%, 70%, 0.9)`);
-        gradient.addColorStop(1, `hsla(${this.colorHue}, 100%, 70%, 0)`);
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      if (dpr !== 1) ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, width, height);
 
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
-        ctx.fill();
+      console.log('Canvas dimensions:', width, height);
+      console.log('Device Pixel Ratio:', dpr);
 
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius * 0.5, 0, Math.PI * 2);
-        ctx.shadowBlur = 0;
-        ctx.shadowColor = `hsl(${this.colorHue}, 100%, 70%)`;
-        ctx.shadowBlur = 8;
-        ctx.fillStyle = `hsla(${this.colorHue}, 100%, 70%, 0.8)`;
-        ctx.fill();
+      nodes.forEach((node) => {
+        node.x = Math.random() * width;
+        node.y = Math.random() * height;
+        node.vx = (Math.random() - 0.5) * 0.6;
+        node.vy = (Math.random() - 0.5) * 0.6;
+      });
+
+      particles.forEach((particle) => {
+        particle.x = Math.random() * width;
+        particle.y = Math.random() * height;
+        particle.vx = (Math.random() - 0.5) * 0.15;
+        particle.vy = (Math.random() - 0.5) * 0.15;
+      });
+    }
+
+    function animate() {
+      if (currentFrame % frameSkip === 0) {
+        ctx.clearRect(0, 0, width, height);
         ctx.shadowBlur = 0;
         ctx.shadowColor = 'transparent';
+
+        // Draw particles and nodes
+        particles.forEach((p) => { p.move(); p.draw(); });
+        nodes.forEach((node) => {
+          repelFromMouse();
+          node.move();
+          node.draw();
+        });
+
+        updateGrid();
+        connectNodes();
       }
+      currentFrame++;
+      requestAnimationFrame(animate);
     }
 
-    // Particle class for background effect
-    class Particle {
-      static CONSTANTS = {
-        RADIUS_MIN: 0.3,
-        RADIUS_MAX: 1.1, // RADIUS_MIN + 0.8
-        OPACITY_MIN: 0.1,
-        OPACITY_MAX: 0.4, // OPACITY_MIN + 0.3
-      };
-
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.radius = Math.random() * (Particle.CONSTANTS.RADIUS_MAX - Particle.CONSTANTS.RADIUS_MIN) + Particle.CONSTANTS.RADIUS_MIN;
-        this.vx = (Math.random() - 0.5) * 0.15;
-        this.vy = (Math.random() - 0.5) * 0.15;
-        this.opacity = Math.random() * (Particle.CONSTANTS.OPACITY_MAX - Particle.CONSTANTS.OPACITY_MIN) + Particle.CONSTANTS.OPACITY_MIN;
-      }
-
-      move() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0) this.x = width;
-        else if (this.x > width) this.x = 0;
-        if (this.y < 0) this.y = height;
-        else if (this.y > height) this.y = 0;
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(57, 255, 20, ${this.opacity})`;
-        ctx.fill();
-      }
-    }
-
-    // Connect nodes with lines if they're close enough
     function connectNodes() {
       const nearbyCellsOffsets = [
         [0, 0], [-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [1, 1], [-1, 1], [1, -1]
@@ -254,80 +198,89 @@
       });
     }
 
-    // Animation loop function
-    let animationFrameId = null;
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      ctx.shadowBlur = 0;
-      ctx.shadowColor = 'transparent';
+    class Node {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.6;
+        this.vy = (Math.random() - 0.5) * 0.6;
+        this.baseRadius = 1 + Math.random() * 2.5;
+        this.radius = this.baseRadius;
+        this.pulseDirection = 1;
+        this.colorHue = 140 + Math.random() * 60; // green to cyan hues
+      }
 
-      // Debugging: Log animation loop
-      console.log('Animating...');
-      // Draw particles first (background)
-      particles.forEach((p) => {
-        p.move();
-        p.draw();
-      });
+      move() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x <= 0 || this.x >= width) this.vx *= -1;
+        if (this.y <= 0 || this.y >= height) this.vy *= -1;
 
-      // Move and draw nodes
-      nodes.forEach((node) => {
-        repelFromMouse(node);
-        node.move();
-        node.draw();
-      });
+        this.radius += 0.02 * this.pulseDirection;
+        if (this.radius > this.baseRadius * 1.3 || this.radius < this.baseRadius * 0.7) {
+          this.pulseDirection *= -1;
+        }
 
-      updateGrid();
-      connectNodes();
+        this.colorHue += 0.2;
+        if (this.colorHue > 200) this.colorHue = 140;
+      }
 
-      animationFrameId = requestAnimationFrame(animate);
+      draw() {
+        console.log('Drawing node at:', this.x, this.y); // Debug log for node position
+        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius * 3);
+        gradient.addColorStop(0, `hsla(${this.colorHue}, 100%, 70%, 0.9)`);
+        gradient.addColorStop(1, `hsla(${this.colorHue}, 100%, 70%, 0)`);
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius * 0.5, 0, Math.PI * 2);
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = `hsl(${this.colorHue}, 100%, 70%)`;
+        ctx.shadowBlur = 8;
+        ctx.fillStyle = `hsla(${this.colorHue}, 100%, 70%, 0.8)`;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = 'transparent';
+      }
     }
 
-    // Initialize the canvas, nodes, and particles
-    function initNodesParticles() {
-      nodes = [];
-      for (let i = 0; i < NODE_COUNT; i++) {
-        nodes.push(new Node());
+    class Particle {
+      static CONSTANTS = {
+        RADIUS_MIN: 0.3,
+        RADIUS_MAX: 1.1,
+        OPACITY_MIN: 0.1,
+        OPACITY_MAX: 0.4,
+      };
+
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.radius = Math.random() * (Particle.CONSTANTS.RADIUS_MAX - Particle.CONSTANTS.RADIUS_MIN) + Particle.CONSTANTS.RADIUS_MIN;
+        this.vx = (Math.random() - 0.5) * 0.15;
+        this.vy = (Math.random() - 0.5) * 0.15;
+        this.opacity = Math.random() * (Particle.CONSTANTS.OPACITY_MAX - Particle.CONSTANTS.OPACITY_MIN) + Particle.CONSTANTS.OPACITY_MIN;
       }
 
-      if (animationFrameId !== null) {
-        cancelAnimationFrame(animationFrameId);
-      }
-      particles = [];
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push(new Particle());
-      }
-      animationFrameId = requestAnimationFrame(animate);
-    }
+      move() {
+        this.x += this.vx;
+        this.y += this.vy;
 
-    // Resize the canvas and reinitialize nodes/particles if needed
-    function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      dpr = window.devicePixelRatio || 1;
-      if (canvas && ctx) {
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-        canvas.style.width = width + 'px';
-        canvas.style.height = height + 'px';
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        if (dpr !== 1) ctx.scale(dpr, dpr);
-        ctx.clearRect(0, 0, width, height);
+        if (this.x < 0) this.x = width;
+        else if (this.x > width) this.x = 0;
+        if (this.y < 0) this.y = height;
+        else if (this.y > height) this.y = 0;
       }
-      // Reinitialize nodes and particles to fit new size
-      if (ctx) {
-        nodes.forEach((node) => {
-          node.x = Math.random() * width;
-          node.y = Math.random() * height;
-          node.vx = (Math.random() - 0.5) * 0.6;
-          node.vy = (Math.random() - 0.5) * 0.6;
-        });
 
-        particles.forEach((particle) => {
-          particle.x = Math.random() * width;
-          particle.y = Math.random() * height;
-          particle.vx = (Math.random() - 0.5) * 0.15;
-          particle.vy = (Math.random() - 0.5) * 0.15;
-        });
+      draw() {
+        console.log('Drawing particle at:', this.x, this.y); // Debug log for particle position
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(57, 255, 20, ${this.opacity})`;
+        ctx.fill();
       }
     }
 
@@ -345,7 +298,6 @@
     canvasManager.initializeCanvas();
   });
 
-  // Resize event handling
   let resizeTimeout = null;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
