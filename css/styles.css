@@ -66,7 +66,7 @@ body, html {
   border: 2px solid #00fc00d0;
   animation: glowPulse 3s ease-in-out infinite;
   margin: 80px auto;
-  z-index: 5; /* Ensure it stays on top of the canvas */
+  z-index: 10; /* Ensure it stays on top of the canvas */
 }
 
 @keyframes glowPulse {
