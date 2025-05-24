@@ -43,50 +43,6 @@ body, html {
   border-bottom: 6px solid transparent; /* Initial transparent border for animation */
 }
 
-/* Create the animated neon lines */
-.header::before,
-.header::after,
-.header .line-three {
-  content: '';
-  position: absolute;
-  bottom:   0;
-  height: 5px;  /* Line height */
-  width: 100%;
-  animation: moveLine 6s ease-in-out infinite;
-  z-index: -1; /* Ensure it doesn't overlap with header content */
-}
-
-/* Line 1: Neon Cyan */
-.header::before {
-  background-color: #00ffff; /* Neon Cyan */
-  animation-delay: 0s; /* No delay for this line */
-}
-
-/* Line 2: Darker Neon Pink */
-.header::after {
-  background-color: #ff00cc; /* Darker Neon Pink */
-  animation-delay: 1s; /* Slightly delayed for movement */
-}
-
-/* Line 3: Darker Neon Purple */
-.header .line-three {
-  background-color: #9b00ff; /* Darker Neon Purple */
-  animation-delay: 2s; /* Slightly delayed for movement */
-}
-
-/* Animation for moving lines */
-@keyframes moveLine {
-  0% {
-    transform: translateX(-100%);
-  }
-  50% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
 /* Canvas background styling */
 #neuralCanvas {
   position: fixed;
