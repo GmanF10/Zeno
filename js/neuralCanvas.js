@@ -41,6 +41,11 @@
         console.error('2D context not available for neuralCanvas.');
         return;
       }
+
+      // Debugging: Log canvas and context
+      console.log('Canvas:', canvas);
+      console.log('Context:', ctx);
+
       resize();
       setupListeners();
     }
@@ -109,6 +114,9 @@
         mouse.x = e.clientX;
         mouse.y = e.clientY;
         mouse.active = true;
+
+        // Debugging: Log mouse position
+        console.log('Mouse Position:', mouse.x, mouse.y);
       });
 
       canvas.addEventListener('mouseleave', () => {
@@ -253,6 +261,8 @@
       ctx.shadowBlur = 0;
       ctx.shadowColor = 'transparent';
 
+      // Debugging: Log animation loop
+      console.log('Animating...');
       // Draw particles first (background)
       particles.forEach((p) => {
         p.move();
