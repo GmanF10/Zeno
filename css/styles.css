@@ -1,4 +1,5 @@
-/* ZENØ Unified Neon Theme CSS */
+/* ZENÃ˜ Unified Neon Theme CSS */
+
 :root {
   --neon-green: #65ec4df8;
   --ai-glow: #09d65ec7;
@@ -7,104 +8,29 @@
   --highlight: #3ed410c5;
 }
 
-/* General styles for the body */
 body, html {
-  &.no-scroll {
-    overflow: hidden; /* Prevent scrolling when this class is applied */
-  }
   margin: 0;
   padding: 0;
-  height: 100%;  /* Ensure full height */
-  width: 100%;   /* Ensure full width */
-  overflow: auto;  /* Allow scrolling by default */
+  height: 100%;
   background-color: var(--bg-dark);
   background-image:
     linear-gradient(rgba(57, 255, 20, 0.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(57, 255, 20, 0.07) 1px, transparent 1px);
-  background-size: 60px 60px;  /* Background grid */
+  background-size: 60px 60px;
   font-family: 'Rajdhani', sans-serif;
+  overflow: hidden;
   color: var(--text-glow);
-
-  /* Flexbox to center the card */
-  display: flex;
-  justify-content: center;  /* Center horizontally */
-  align-items: center;      /* Center vertically */
-  flex-direction: column;
-  height: 100vh;  /* Ensure the body takes full height */
 }
 
-/* Robust Header Styling */
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100px; /* Header height */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background: rgba(10, 10, 10, 0.5); /* Semi-transparent background */
-  background-color: rgba(10, 10, 10, 0.7); /* Fallback for unsupported browsers */
-  backdrop-filter: blur(10px); /* Glassmorphism effect */
-  z-index: 3;
-}
-
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 1200px;
-}
-
-.logo {
-  font-size: 3rem;
-  color: #39ff14; /* Neon green */
-  letter-spacing: 0.1rem;
-  text-transform: uppercase;
-  font-family: 'Orbitron', sans-serif;
-  text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 30px #39ff14;
-}
-
-.auth-buttons {
-  display: flex;
-  gap: 20px;
-}
-
-.auth-button {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  background-color: transparent;
-  border: 2px solid #65ec4d;
-  color: var(--text-glow);
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  text-decoration: none;
-  box-shadow: 0 0 8px #65ec4d;
-  transition: all 0.3s ease;
-}
-
-.auth-button:hover {
-  background-color: #65ec4d;
-  color: #000;
-  box-shadow: 0 0 16px #65ec4d, 0 0 24px #65ec4d;
-}
-
-/* Canvas background styling */
 #neuralCanvas {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;  /* Full width of the viewport */
-  height: 100%; /* Full height of the viewport */
-  z-index: -2;   /* Behind all content */
-  will-change: transform, opacity; /* Performance optimization for animation */
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
-/* Main Card */
 .card {
   background: rgba(48, 45, 45, 0.15);
   border-radius: 20px;
@@ -117,8 +43,6 @@ body, html {
   border: 2px solid #00fc00d0;
   animation: glowPulse 3s ease-in-out infinite;
   margin: 80px auto;
-  z-index: 2; /* Higher than canvas */
-  will-change: box-shadow; /* Performance optimization for glow animation */
 }
 
 @keyframes glowPulse {
@@ -242,6 +166,7 @@ body, html {
   text-decoration: none;
   box-shadow: 0 0 8px var(--neon-green);
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .link-button:hover, .button:hover {
@@ -250,24 +175,86 @@ body, html {
   box-shadow: 0 0 16px var(--neon-green), 0 0 24px var(--neon-green);
 }
 
-/* Adjusting for smaller screens */
+.auth-card {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 25px;
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.6);
+  animation: flickerGlow 2.5s infinite alternate;
+  text-align: center;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 6px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+}
+
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.6;
+}
+
+.user-icon::before { content: 'ðŸ‘¤'; }
+.lock-icon::before { content: 'ðŸ”’'; }
+
+#status, #regStatus {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.form-footer {
+  margin-top: 15px;
+  font-size: 0.95rem;
+}
+
+.form-footer a {
+  color: #39ff14;
+  text-decoration: none;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+@keyframes flickerGlow {
+  from { box-shadow: 0 0 15px rgba(57, 255, 20, 0.4); }
+  to { box-shadow: 0 0 30px rgba(101, 236, 77, 0.9); }
+}
+
 @media (max-width: 700px) {
-  /* Reduce padding for the card to fit smaller screens */
   .card {
     padding: 20px;
   }
 
-  /* Decrease title font size for better visibility */
   .title {
     font-size: 3rem;
   }
 
-  /* Adjust main text font size for readability */
   .main-text {
     font-size: 1rem;
   }
 
-  /* Scale down button font size and padding for compactness */
   .link-button {
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
