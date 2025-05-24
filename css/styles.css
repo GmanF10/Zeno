@@ -10,7 +10,7 @@
 
 /* General styles for the body */
 body, html {
-  margin: 0;
+  margin:  0;
   padding: 0;
   display: flex; /* Flex container */
   justify-content: center;  /* Center horizontally */
@@ -22,9 +22,8 @@ body, html {
     linear-gradient(90deg, rgba(57, 255, 20, 0.07) 1px, transparent 1px);
   background-size: 60px 60px;
   font-family: 'Rajdhani', sans-serif;
-  overflow: hidden;
+  overflow: visible;
   color: var(--text-glow);
-  height: auto; /* Automatically adjust to fit content */
 }
 
 /* Robust Header Styling */
@@ -50,10 +49,10 @@ body, html {
 .header .line-three {
   content: '';
   position: absolute;
-  bottom: 0;
-  height: 4px;  /* Line height */
+  bottom:   0;
+  height: 5px;  /* Line height */
   width: 100%;
-  animation: moveLine 3s ease-in-out infinite;
+  animation: moveLine 6s ease-in-out infinite;
   z-index: -1; /* Ensure it doesn't overlap with header content */
 }
 
@@ -95,14 +94,14 @@ body, html {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* Keep canvas behind everything else */
+  z-index: 1; /* Keep canvas behind everything else */
 }
 
 /* Main Card */
 .card {
   background: rgba(48, 45, 45, 0.15);
-  border-radius: 20px;
-  padding: 40px 30px;
+  border-radius: 50px;
+  padding: 30px 22.5px;
   max-width: 750px;
   width: 100%; /* Ensure it doesn't exceed viewport width */
   text-align: center;
@@ -111,7 +110,7 @@ body, html {
   border: 2px solid #00fc00d0;
   animation: glowPulse 3s ease-in-out infinite;
   margin: 80px auto;
-  z-index: 10; /* Ensure it stays on top of the canvas */
+  z-index: 5; /* Ensure it stays on top of the canvas */
 }
 
 @keyframes glowPulse {
@@ -126,7 +125,7 @@ body, html {
 /* Flicker animation for .zeno-box */
 .zeno-box {
   border: 2px solid #65ec4df8;
-  padding: 20px;
+  padding: 10px;
   display: inline-block;
   margin-bottom: 1em;
   box-shadow:
@@ -170,7 +169,7 @@ body, html {
 .title {
   font-family: 'Orbitron', sans-serif;
   font-weight: 800;
-  font-size: 5rem;
+  font-size: 3rem;
   letter-spacing: 0.32em;
   margin: 0;
   color: #000;
@@ -181,7 +180,7 @@ body, html {
     2px 2px 0 var(--ai-glow),
     0 0 12px #ffe868;
   position: relative;
-  z-index: 2;
+  z-index: 10;
 }
 
 /* Neon text light styling */
