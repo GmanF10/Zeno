@@ -30,73 +30,14 @@ body, html {
   height: 100vh;  /* Ensure the body takes full height */
 }
 
-/* Robust Header Styling */
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100px; /* Header height */
+/* Main Card Container */
+.card-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background: rgba(10, 10, 10, 0.5); /* Semi-transparent background */
-  backdrop-filter: blur(10px); /* Glassmorphism effect */
-  z-index: 100;
-}
-
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 1200px;
-}
-
-.logo {
-  font-size: 3rem;
-  color: #39ff14; /* Neon green */
-  letter-spacing: 0.1rem;
-  text-transform: uppercase;
-  font-family: 'Orbitron', sans-serif;
-  text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 30px #39ff14;
-}
-
-.auth-buttons {
-  display: flex;
-  gap: 20px;
-}
-
-.auth-button {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  background-color: transparent;
-  border: 2px solid #65ec4d;
-  color: var(--text-glow);
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  text-decoration: none;
-  box-shadow: 0 0 8px #65ec4d;
-  transition: all 0.3s ease;
-}
-
-.auth-button:hover {
-  background-color: #65ec4d;
-  color: #000;
-  box-shadow: 0 0 16px #65ec4d, 0 0 24px #65ec4d;
-}
-
-/* Canvas background styling */
-#neuralCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+  justify-content: center;  /* Center horizontally */
+  align-items: center;      /* Center vertically */
+  height: 100%;  /* Ensure it takes full height of the screen */
+  width: 100%;   /* Take full width */
+  z-index: 10;   /* Ensure it's above background elements if needed */
 }
 
 /* Main Card */
@@ -114,6 +55,7 @@ body, html {
   margin: 80px auto;
 }
 
+/* Glow Animation for the Card */
 @keyframes glowPulse {
   0%, 100% {
     box-shadow: 0 0 15px var(--neon-green), inset 0 0 30px var(--neon-green);
@@ -123,97 +65,17 @@ body, html {
   }
 }
 
-.zeno-box {
-  border: 2px solid #65ec4df8;
-  padding: 20px;
-  display: inline-block;
-  margin-bottom: 1em;
-  box-shadow:
-    0 0 10px #09d65ec7,
-    0 0 20px #09d65ec7,
-    inset 0 0 10px #049c43c7;
-  background: rgba(9, 32, 2, 0.596);
-  position: relative;
-  animation: flicker 2.5s infinite alternate;
-  backdrop-filter: blur(6px);
+/* Canvas background styling */
+#neuralCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
-.zeno-box::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0, 255, 200, 0.08),
-    rgba(0, 255, 200, 0.08) 1px,
-    transparent 2px,
-    transparent 3px
-  );
-  pointer-events: none;
-  z-index: 1;
-}
-
-@keyframes flicker {
-  0% { opacity: 1; }
-  5% { opacity: 0.8; }
-  10% { opacity: 0.9; }
-  20% { opacity: 0.6; }
-  25% { opacity: 0.95; }
-  30% { opacity: 0.85; }
-  40% { opacity: 1; }
-  100% { opacity: 0.9; }
-}
-
-.title {
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 800;
-  font-size: 5rem;
-  letter-spacing: 0.32em;
-  margin: 0;
-  color: #000;
-  text-shadow:
-    -2px -2px 0 var(--ai-glow),
-    2px -2px 0 var(--ai-glow),
-    -2px 2px 0 var(--ai-glow),
-    2px 2px 0 var(--ai-glow),
-    0 0 12px #ffe868;
-  position: relative;
-  z-index: 2;
-}
-
-.zeno-light {
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 900;
-  color: #000;
-  letter-spacing: 0.15em;
-  margin: 1em 0 0.5em;
-  text-shadow: 0 0 20px #00ffea;
-}
-
-.main-text {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  color: var(--text-glow);
-  text-shadow: 0 0 6px #000000aa;
-  margin-bottom: 1em;
-}
-
-.highlight-alt {
-  color: var(--highlight);
-  font-weight: 600;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 1.1rem;
-  letter-spacing: 0.1em;
-  text-shadow:
-    -1px -1px 0 #164400,
-    1px -1px 0 #164400,
-    -1px 1px 0 #164400,
-    1px 1px 0 #164400,
-    0 0 6px #164400;
-  margin: 1em 0 0.5em;
-}
-
+/* Flexbox-based styles for the button group */
 .button-group {
   display: flex;
   flex-wrap: wrap;
