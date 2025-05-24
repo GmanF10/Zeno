@@ -1,5 +1,4 @@
 /* ZENØ Unified Neon Theme CSS */
-
 :root {
   --neon-green: #65ec4df8;
   --ai-glow: #09d65ec7;
@@ -10,11 +9,14 @@
 
 /* General styles for the body */
 body, html {
+  &.no-scroll {
+    overflow: hidden; /* Prevent scrolling when this class is applied */
+  }
   margin: 0;
   padding: 0;
   height: 100%;  /* Ensure full height */
   width: 100%;   /* Ensure full width */
-  overflow: hidden;  /* Prevent scrolling */
+  overflow: auto;  /* Allow scrolling by default */
   background-color: var(--bg-dark);
   background-image:
     linear-gradient(rgba(57, 255, 20, 0.07) 1px, transparent 1px),
@@ -43,6 +45,7 @@ body, html {
   align-items: center;
   padding: 20px;
   background: rgba(10, 10, 10, 0.5); /* Semi-transparent background */
+  background-color: rgba(10, 10, 10, 0.7); /* Fallback for unsupported browsers */
   backdrop-filter: blur(10px); /* Glassmorphism effect */
   z-index: 3;
 }
@@ -95,9 +98,10 @@ body, html {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -2;
+  width: 100%;  /* Full width of the viewport */
+  height: 100%; /* Full height of the viewport */
+  z-index: -2;   /* Behind all content */
+  will-change: transform, opacity; /* Performance optimization for animation */
 }
 
 /* Main Card */
@@ -114,6 +118,7 @@ body, html {
   animation: glowPulse 3s ease-in-out infinite;
   margin: 80px auto;
   z-index: 2; /* Higher than canvas */
+  will-change: box-shadow; /* Performance optimization for glow animation */
 }
 
 @keyframes glowPulse {
@@ -247,18 +252,22 @@ body, html {
 
 /* Adjusting for smaller screens */
 @media (max-width: 700px) {
+  /* Reduce padding for the card to fit smaller screens */
   .card {
     padding: 20px;
   }
 
+  /* Decrease title font size for better visibility */
   .title {
     font-size: 3rem;
   }
 
+  /* Adjust main text font size for readability */
   .main-text {
     font-size: 1rem;
   }
 
+  /* Scale down button font size and padding for compactness */
   .link-button {
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
