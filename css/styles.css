@@ -32,15 +32,36 @@ body, html {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100px; /* Header height */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
   background: rgba(10, 10, 10, 0.5); /* Semi-transparent background */
   backdrop-filter: blur(10px); /* Glassmorphism effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
   z-index: 100; /* Ensure the header is on top */
   border-bottom: 6px solid transparent; /* Initial transparent border for animation */
+}
+
+/* Logo styling in header */
+.logo {
+  font-family: 'Orbitron', sans-serif;  /* match neon title font for branding */
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+  margin: 0;                    /* remove default H1 margins */
+  color: var(--neon-green);     /* bright neon text for contrast */
+}
+.logo a {
+  color: inherit;               /* use same color for link */
+  text-decoration: none;        /* remove underline from logo link */
+}
+
+/* Auth links container in header */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;                    /* space between Login and Sign Up */
 }
 
 /* Canvas background styling */
@@ -207,6 +228,13 @@ body, html {
 
 /* Adjusting for smaller screens */
 @media (max-width: 700px) {
+  .header {
+    padding: 15px;
+  }
+  .logo {
+    font-size: 1.6rem;
+  }
+
   .card {
     padding: 20px;
   }

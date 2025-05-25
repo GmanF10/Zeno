@@ -15,19 +15,21 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <!-- Neural Canvas for Background Effect -->
-  <canvas id="neuralCanvas"></canvas>
+<!-- Decorative background canvas, now hidden from assistive technology -->
+<canvas id="neuralCanvas" aria-hidden="true"></canvas>
 
-  <!-- New Robust Header with Logo and Authentication Buttons -->
-  <header class="header">
-    <div class="header-content">
-      <h1 class="logo">ZENØ</h1>
-      <div class="auth-buttons">
-        <a class="auth-button" href="login.html">Login</a>
-        <a class="auth-button" href="register.html">Sign Up</a>
-      </div>
-    </div>
-  </header>
+<header class="header">
+  <!-- Clickable logo linking to home page for easy navigation -->
+  <h1 class="logo"><a href="index.html">ZENØ</a></h1>
+
+  <!-- Navigation for authentication links -->
+  <nav class="auth-buttons" aria-label="Authentication Links">
+    <a class="link-button" href="login.html">Login</a>
+    <a class="link-button" href="register.html">Sign Up</a>
+  </nav>
+</header>
+
+
 
   <!-- Main Card Content -->
   <div class="card">
